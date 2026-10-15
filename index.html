@@ -1,0 +1,1672 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2044%2044%22%3E%3Crect%20width%3D%2244%22%20height%3D%2244%22%20rx%3D%229%22%20fill%3D%22%23a3231f%22/%3E%3Cg%20transform%3D%22translate%2822%2022%29%20scale%281.08%29%20rotate%28-38%29%20translate%28-22.6%20-21%29%22%3E%3Cpath%20d%3D%22M5%2015.5h19.5v10.5c-6%202.6-13.5%202.6-19.5%200.6z%22%20fill%3D%22%23fff%22/%3E%3Cpath%20d%3D%22M6%2025.6c6%201.7%2012.6%201.6%2018.5-0.4%22%20stroke%3D%22%23a3231f%22%20stroke-opacity%3D%22.28%22%20stroke-width%3D%221%22%20fill%3D%22none%22/%3E%3Crect%20x%3D%2224.5%22%20y%3D%2218%22%20width%3D%222.2%22%20height%3D%225.4%22%20fill%3D%22%23e9e5e0%22/%3E%3Crect%20x%3D%2226.7%22%20y%3D%2218.4%22%20width%3D%2213.5%22%20height%3D%224.6%22%20rx%3D%222.1%22%20fill%3D%22%23d9a441%22/%3E%3Ccircle%20cx%3D%2230.3%22%20cy%3D%2220.7%22%20r%3D%22.75%22%20fill%3D%22%237d1714%22/%3E%3Ccircle%20cx%3D%2235.3%22%20cy%3D%2220.7%22%20r%3D%22.75%22%20fill%3D%22%237d1714%22/%3E%3C/g%3E%3C/svg%3E">
+<style>[hidden]{display:none!important}body{margin:0}img{max-width:100%}</style>
+<title>Мясная «Дядя Тома»</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Manrope:wght@400;500;600;700;800&family=Oswald:wght@500;600&display=swap">
+<style>
+/* Layout: a present-day local butcher's shop site as built on a site constructor — info strip, sticky white header,
+   slate hero with a board of meat, category tiles, filterable catalogue with weight picker, services, delivery,
+   wholesale band, FAQ, contacts with map, slate footer; cart in a side drawer. One deliberate light look, like a real shop. */
+:root{
+  --bg:#ffffff;
+  --surface:#f4f2ef;
+  --ink:#1f1c1b;
+  --muted:#6f6865;
+  --line:#e6e1dc;
+  --accent:#a3231f;
+  --accent-ink:#7d1714;
+  --fresh:#2f5d46;
+  --fresh-bg:#e9f1ec;
+  --slate:#26292b;
+  --slate-ink:#e9e5e0;
+  --slate-muted:#a8a29c;
+  --gold:#d9a441;
+  --head:"Oswald","Arial Narrow",Impact,sans-serif;
+  --body:"Manrope","Segoe UI",Roboto,Arial,sans-serif;
+  --radius:10px;
+  color-scheme:light;
+}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 var(--body);margin:0}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+h1,h2,h3{font-family:var(--head);font-weight:600;text-transform:uppercase;letter-spacing:.01em;line-height:1.1;text-wrap:balance;margin:0}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.in{max-width:1200px;margin:0 auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.num{font-variant-numeric:tabular-nums}
+
+/* info strip + header */
+.strip{background:var(--slate);color:var(--slate-ink);font-size:13px}
+.strip .in{display:flex;flex-wrap:wrap;gap:4px 24px;justify-content:space-between;padding-block:7px}
+.strip b{color:#fff;font-weight:600}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#62b07f;margin-right:6px;vertical-align:1px}
+.dot.off{background:#c9675f}
+.hdr{position:sticky;top:env(safe-area-inset-top, 0px);z-index:30;background:var(--bg);border-bottom:1px solid var(--line)}
+.hdr .in{display:flex;align-items:center;gap:20px;padding-block:12px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex:none}
+.logo svg{width:44px;height:44px;flex:none}
+.logo b{display:block;font:600 23px/1 var(--head);text-transform:uppercase;letter-spacing:.02em}
+.logo small{display:block;font-size:11.5px;color:var(--muted);margin-top:3px;letter-spacing:.04em}
+.nav{display:flex;gap:18px;margin-left:8px}
+.nav a{text-decoration:none;font-weight:600;font-size:14.5px;white-space:nowrap}
+.nav a:hover{color:var(--accent)}
+.hdr-r{margin-left:auto;display:flex;align-items:center;gap:18px}
+.tel{text-align:right;line-height:1.2}
+.tel a{font-weight:800;font-size:17px;text-decoration:none;white-space:nowrap}
+.tel small{display:block;font-size:12px;color:var(--muted)}
+.cartbtn{position:relative;display:flex;align-items:center;gap:8px;border:0;background:var(--accent);color:#fff;border-radius:8px;padding:10px 14px;font-weight:700;white-space:nowrap}
+.cartbtn:hover{background:var(--accent-ink)}
+.cartbtn svg{width:20px;height:20px}
+.cartbtn em{position:absolute;top:-7px;right:-7px;min-width:20px;height:20px;border-radius:10px;background:var(--gold);color:var(--ink);font:800 11px/20px var(--body);text-align:center;font-style:normal;padding:0 5px}
+.burger{display:none;border:1px solid var(--line);background:var(--bg);border-radius:8px;width:42px;height:42px;padding:0;flex:none}
+.burger span{display:block;width:18px;height:2px;background:var(--ink);margin:4px auto}
+
+/* buttons, chips, forms */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:8px;background:var(--accent);color:#fff;font-weight:700;padding:13px 22px;text-decoration:none;font-size:15px}
+.btn:hover{background:var(--accent-ink);color:#fff}
+.btn.ghost{background:transparent;border:1.5px solid currentColor;color:inherit}
+.btn.ghost:hover{background:rgba(255,255,255,.08)}
+.btn.small{padding:9px 14px;font-size:14px}
+.btn.wide{width:100%}
+.btn[disabled]{opacity:.6;cursor:default}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--bg);border-radius:20px;padding:7px 14px;font-size:14px;font-weight:600}
+.chip:hover{border-color:var(--ink)}
+.chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.form{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.form label{display:flex;flex-direction:column;gap:5px;font-size:13px;font-weight:600;color:var(--muted)}
+.form .full{grid-column:1 / -1}
+.form input,.form textarea,.form select{border:1px solid #d8d1ca;border-radius:8px;padding:10px 12px;font-size:15px;background:var(--bg);color:var(--ink)}
+.form input:focus,.form textarea:focus,.form select:focus{border-color:var(--ink);outline:none}
+.form textarea{min-height:70px;resize:vertical}
+.msg{margin-top:12px;padding:11px 14px;border-radius:8px;font-size:14px}
+.msg.ok{background:var(--fresh-bg);color:var(--fresh)}
+.msg.warn{background:#fbf1e1;color:#7a5410}
+.note{font-size:13px;color:var(--muted)}
+
+/* hero */
+.hero{background:var(--slate);color:var(--slate-ink)}
+.hero .in{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:40px;align-items:center;padding-block:48px}
+.hero h1{font-size:clamp(34px,4.6vw,56px);color:#fff}
+.hero h1 span{color:var(--gold)}
+.hero p{font-size:17px;color:var(--slate-ink);max-width:46ch;margin:18px 0 26px}
+.hero .acts{display:flex;flex-wrap:wrap;gap:12px}
+.hero figure{margin:0;border-radius:var(--radius);overflow:hidden;aspect-ratio:3 / 2;max-width:100%;background:#1c1e20}
+.hero figure img,.hero figure canvas{display:block;width:100%;height:100%;object-fit:cover}
+.facts{border-bottom:1px solid var(--line)}
+.facts .in{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;padding-block:22px}
+.fact{display:flex;gap:12px;align-items:flex-start;min-width:0}
+.fact svg{width:34px;height:34px;flex:none;color:var(--accent)}
+.fact b{display:block;font-size:14.5px}
+.fact span{font-size:13px;color:var(--muted)}
+
+/* sections */
+.sec{padding-block:56px}
+.sec.alt{background:var(--surface)}
+.sec-h{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px;margin-bottom:24px}
+.sec-h h2{font-size:clamp(28px,3.2vw,38px)}
+.sec-h p{margin:6px 0 0;color:var(--muted);max-width:60ch}
+
+.cats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.cat{position:relative;border:0;padding:0;border-radius:var(--radius);overflow:hidden;background:var(--slate);text-align:left;aspect-ratio:4 / 3;max-width:100%}
+.cat img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.cat:hover img{transform:scale(1.04)}
+.cat span{position:absolute;left:0;right:0;bottom:0;padding:28px 14px 12px;background:linear-gradient(transparent,rgba(0,0,0,.72));color:#fff;font:600 19px/1.1 var(--head);text-transform:uppercase}
+.cat em{display:block;font:500 12px var(--body);text-transform:none;font-style:normal;color:#e5ded7;margin-top:3px}
+@media (prefers-reduced-motion: reduce){.cat img{transition:none}}
+
+.tools{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:22px}
+.tools .chips{flex:1 1 520px}
+.find{display:flex;gap:10px;flex-wrap:wrap}
+.find input,.find select{border:1px solid #d8d1ca;border-radius:8px;padding:8px 12px;font-size:14px;background:var(--bg)}
+.find input{width:200px;max-width:100%}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(250px,100%),1fr));gap:20px}
+.card{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--bg);min-width:0}
+.card-img{position:relative;border:0;padding:0;background:var(--slate);aspect-ratio:4 / 3;max-width:100%;display:block}
+.card-img img{display:block;width:100%;height:100%;object-fit:cover}
+.badge{position:absolute;left:10px;top:10px;font-size:12px;font-weight:700;border-radius:6px;padding:3px 9px;background:var(--bg);color:var(--ink)}
+.badge.sale{background:var(--accent);color:#fff}
+.badge.new{background:var(--gold);color:var(--ink)}
+.card-b{display:flex;flex-direction:column;gap:10px;padding:14px 14px 16px;flex:1}
+.card-n{border:0;background:none;padding:0;text-align:left;font-weight:700;font-size:16px;line-height:1.3}
+.card-n:hover{color:var(--accent)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:11.5px;font-weight:600;color:var(--fresh);background:var(--fresh-bg);border-radius:5px;padding:2px 7px}
+.ppk{display:flex;align-items:baseline;gap:8px;margin-top:auto}
+.ppk b{font-size:21px;font-weight:800}
+.ppk s{color:var(--muted);font-size:14px}
+.ppk small{color:var(--muted);font-size:13px}
+.wsel{display:flex;gap:6px}
+.wsel button{flex:1;border:1px solid var(--line);background:var(--bg);border-radius:6px;padding:6px 0;font-size:13px;font-weight:600}
+.wsel button.on{border-color:var(--ink);background:var(--surface)}
+.buy{display:flex;align-items:center;gap:10px}
+.buy .sum{font-size:14px;color:var(--muted);flex:1}
+.buy .sum b{color:var(--ink);font-size:15px}
+.incart{font-size:12.5px;color:var(--fresh);font-weight:600;min-height:1em}
+.empty{padding:30px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:var(--radius)}
+
+.cols2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:start}
+.svc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.svc div{background:var(--bg);border-radius:var(--radius);padding:18px;border:1px solid var(--line)}
+.svc b{display:block;margin-bottom:4px}
+.svc span{font-size:14px;color:var(--muted)}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;counter-reset:s}
+.steps li{counter-increment:s;border-top:3px solid var(--ink);padding-top:14px;min-width:0}
+.steps li::before{content:counter(s);display:block;font:600 34px/1 var(--head);color:var(--accent);margin-bottom:8px}
+.steps b{display:block;margin-bottom:4px}
+.steps span{font-size:14px;color:var(--muted)}
+.prose p{margin:0 0 14px;max-width:62ch}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--surface);font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+.pay{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.pay span{border:1px solid var(--line);border-radius:6px;padding:5px 10px;font-size:13px;font-weight:600;background:var(--bg)}
+
+.opt{background:var(--slate);color:var(--slate-ink)}
+.opt .in{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:30px;align-items:center;padding-block:44px}
+.opt h2{color:#fff;font-size:clamp(26px,3vw,36px)}
+.opt p{margin:12px 0 0;max-width:58ch}
+.opt ul{margin:14px 0 0;padding-left:18px;color:var(--slate-ink)}
+.opt .acts{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.opt small{color:var(--slate-muted)}
+
+.about-fig{margin:0;border-radius:var(--radius);overflow:hidden;aspect-ratio:4 / 3;max-width:100%;background:var(--slate)}
+.about-fig img{display:block;width:100%;height:100%;object-fit:cover}
+.about-n{display:flex;flex-wrap:wrap;gap:28px;margin-top:20px}
+.about-n b{display:block;font:600 30px/1 var(--head)}
+.about-n span{font-size:13px;color:var(--muted)}
+
+.faq{display:flex;flex-direction:column;gap:10px;max-width:860px}
+.faq details{border:1px solid var(--line);border-radius:var(--radius);background:var(--bg)}
+.faq summary{cursor:pointer;padding:15px 18px;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:20px;line-height:1;color:var(--accent)}
+.faq details[open] summary::after{content:"−"}
+.faq details p{margin:0;padding:0 18px 16px;color:var(--muted);max-width:70ch}
+
+.shops{display:flex;flex-direction:column;gap:18px}
+.shops b{display:block;font-size:16px}
+.shops span{color:var(--muted);font-size:14px}
+.soc{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.soc a{border:1px solid var(--line);border-radius:20px;padding:6px 14px;text-decoration:none;font-size:14px;font-weight:600}
+.soc a:hover{border-color:var(--ink)}
+.map{border-radius:var(--radius);overflow:hidden;border:1px solid var(--line)}
+.map svg{display:block;width:100%;height:auto}
+
+.foot{background:var(--slate);color:var(--slate-muted);font-size:13.5px}
+.foot .in{display:grid;grid-template-columns:minmax(0,2fr) repeat(3,minmax(0,1fr));gap:28px;padding-block:40px 28px}
+.foot h3{color:#fff;font-size:15px;margin-bottom:10px;letter-spacing:.04em}
+.foot ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.foot a,.foot button.lnk{color:var(--slate-ink);text-decoration:none;border:0;background:none;padding:0;font-size:13.5px;text-align:left}
+.foot a:hover,.foot button.lnk:hover{color:#fff;text-decoration:underline}
+.foot .logo b{color:#fff}
+.foot .logo small{color:var(--slate-muted)}
+.foot .legal{grid-column:1 / -1;border-top:1px solid #3b3f42;padding-top:18px;display:flex;flex-wrap:wrap;gap:6px 24px;justify-content:space-between}
+
+/* drawer + modal + cookie */
+.shade{position:fixed;inset:0;background:rgba(20,16,14,.55);z-index:50}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(440px,100%);background:var(--bg);z-index:51;display:flex;flex-direction:column;box-shadow:-10px 0 30px rgba(0,0,0,.25);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);padding-right:env(safe-area-inset-right,0px)}
+.dr-h{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--line)}
+.dr-h h2{font-size:24px}
+.x{border:0;background:var(--surface);width:38px;height:38px;border-radius:50%;font-size:20px;line-height:1}
+.dr-b{flex:1;overflow-y:auto;padding:16px 20px}
+.dr-f{border-top:1px solid var(--line);padding:16px 20px;display:flex;flex-direction:column;gap:10px}
+.line{display:grid;grid-template-columns:72px minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.line img{width:72px;height:54px;object-fit:cover;border-radius:6px;display:block}
+.line b{display:block;font-size:14px;line-height:1.3}
+.line small{color:var(--muted);font-size:12.5px}
+.line .rm{border:0;background:none;color:var(--muted);font-size:12.5px;padding:0;text-decoration:underline}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:6px}
+.qty button{border:0;background:var(--surface);width:30px;height:30px;font-weight:700}
+.qty output{min-width:64px;text-align:center;font-weight:700;font-size:13.5px}
+.lsum{text-align:right;font-weight:700;white-space:nowrap}
+.tot{display:flex;justify-content:space-between;font-size:14px}
+.tot.big{font-size:18px;font-weight:800}
+.promo{display:flex;gap:8px}
+.promo input{flex:1;min-width:0;border:1px solid #d8d1ca;border-radius:8px;padding:9px 12px;font-size:14px}
+.promo button{border:1px solid var(--ink);background:var(--bg);border-radius:8px;padding:0 14px;font-weight:700;font-size:14px}
+.slots{display:flex;flex-wrap:wrap;gap:6px}
+.slots button{border:1px solid var(--line);background:var(--bg);border-radius:6px;padding:6px 10px;font-size:13px;font-weight:600}
+.slots button.on{border-color:var(--ink);background:var(--surface)}
+.slots button[disabled]{opacity:.4;cursor:default}
+
+.modal{position:fixed;inset:0;z-index:60;background:rgba(20,16,14,.6);display:flex;align-items:flex-start;justify-content:center;overflow-y:auto;padding:max(24px, env(safe-area-inset-top,0px)) max(16px, env(safe-area-inset-right,0px)) max(24px, env(safe-area-inset-bottom,0px)) max(16px, env(safe-area-inset-left,0px))}
+.modal-box{position:relative;width:100%;max-width:880px;background:var(--bg);border-radius:12px;box-shadow:0 20px 50px rgba(0,0,0,.35);margin:auto 0}
+.modal-box.narrow{max-width:480px}
+.modal-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 22px;border-bottom:1px solid var(--line)}
+.modal-head h2{font-size:24px}
+.modal-in{padding:22px}
+.pv{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:26px}
+.pv figure{margin:0;border-radius:var(--radius);overflow:hidden;background:var(--slate);aspect-ratio:4 / 3;max-width:100%}
+.pv figure img{display:block;width:100%;height:100%;object-fit:cover}
+.pv p{margin:0 0 12px;font-size:14.5px}
+.spec{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;font-size:13.5px;margin:0 0 16px}
+.spec dt{color:var(--muted)}
+.spec dd{margin:0}
+.pv .ppk{margin:6px 0 12px}
+.pv label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin:10px 0 6px}
+.pv select{width:100%;border:1px solid #d8d1ca;border-radius:8px;padding:9px 12px;font-size:14.5px;background:var(--bg)}
+.pv .buy{margin-top:16px}
+
+.cookie{position:fixed;left:max(16px, env(safe-area-inset-left,0px));right:max(16px, env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:40;max-width:560px;background:var(--slate);color:var(--slate-ink);border-radius:var(--radius);padding:14px 16px;display:flex;gap:14px;align-items:center;font-size:13.5px;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+.cookie p{margin:0;flex:1}
+.cookie button.lnk{border:0;background:none;padding:0;color:#fff;text-decoration:underline;font-size:13.5px}
+
+/* wholesale cabinet (opened from the login) */
+.cab-bar{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:center;justify-content:space-between;background:var(--surface);border-radius:8px;padding:10px 14px;font-size:14px}
+.cab-bar b{color:var(--ink)}
+.cab-bar button{border:0;background:none;padding:0;color:var(--accent);text-decoration:underline;font-size:14px}
+.cab h3{margin:26px 0 10px;font-size:20px}
+.cab table{font-size:13.5px}
+.st{display:inline-block;white-space:nowrap;font-size:12px;font-weight:700;border-radius:10px;padding:2px 9px}
+.st.ok{color:var(--fresh);background:var(--fresh-bg)}
+.st.no{color:var(--accent-ink);background:#f8e4e1}
+.st.ice{color:#24506e;background:#e3eef6}
+.chat{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.chat li{max-width:78%;border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:14px;background:var(--bg)}
+.chat li.me{align-self:flex-end;background:var(--fresh-bg);border-color:transparent}
+.chat li small{display:block;font-size:11.5px;color:var(--muted);margin-bottom:2px}
+.chat .unread{align-self:flex-end;font-size:12px;color:var(--muted);border:0;background:none;padding:0}
+.st.wait{color:#7a5410;background:#fbf1e1}
+.draft{margin-top:12px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:14px;background:var(--surface);color:var(--ink)}
+.draft small{display:block;font-size:11.5px;color:var(--muted);margin-bottom:3px}
+.draft .caret{display:inline-block;width:1.5px;height:1.05em;background:var(--ink);vertical-align:-2px;margin-left:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+@media (prefers-reduced-motion: reduce){.draft .caret{animation:none}}
+.cab-tabs{display:flex;flex-wrap:wrap;gap:4px;margin:16px 0 0;border-bottom:1px solid var(--line)}
+.cab-tabs button{border:0;background:none;padding:10px 14px;font-weight:700;font-size:14px;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-1px}
+.cab-tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.cab-tabs em{font-style:normal;display:inline-block;min-width:18px;height:18px;border-radius:9px;background:var(--accent);color:#fff;font-size:11px;line-height:18px;text-align:center;margin-left:4px}
+.cab-pane h3{margin-top:18px}
+#chatList{max-height:min(52vh,460px);overflow-y:auto;padding:4px 2px}
+.chat li .txt{display:block;white-space:pre-wrap;overflow-wrap:anywhere}
+.chat li .sent{display:block;text-align:right;font-size:11px;color:var(--muted);margin-top:2px}
+.composer{display:flex;gap:8px;align-items:flex-end;margin-top:12px;border:1px solid #d8d1ca;border-radius:12px;padding:8px;background:var(--bg)}
+.composer:focus-within{border-color:var(--ink)}
+.composer textarea{flex:1;min-width:0;border:0;resize:none;font:15px/1.4 var(--body);padding:6px;background:transparent;color:var(--ink);max-height:140px;outline:none}
+.composer .btn{padding:10px 16px}
+.msg.full{background:#f8e4e1;color:var(--accent-ink);font-weight:700}
+.cab-moved{align-self:center;margin-left:auto;padding:10px 4px;font-size:13px;color:#a39d99;text-decoration:none}
+.cab-moved span{font-size:12px}
+.cab-moved:hover{color:var(--muted);text-decoration:underline}
+.nf-top{text-align:center;padding-block:72px 64px}
+.nf-top .code{font:600 clamp(96px,16vw,168px)/1 var(--head);color:var(--accent);margin:0}
+.nf-top h1{font-size:clamp(28px,3.4vw,40px);margin:10px 0 12px}
+.nf-top p{color:var(--muted);max-width:52ch;margin:0 auto}
+.nf-top .acts{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:26px}
+.nf-top .btn.ghost{color:var(--ink)}
+.nf-top .btn.ghost:hover{background:var(--surface)}
+.tail{all:initial;display:block;margin:280vh 0 0;padding:0 0 45vh 8px}
+.tail *{all:revert}
+@media (max-width:560px){
+.lock{border:1px dashed #a9c7dd;background:#f2f7fb;border-radius:8px;padding:14px}
+.lock p{margin:0 0 8px;font-size:14px}
+.wh{border:1px solid #a9c7dd;background:#f2f7fb;border-radius:8px;padding:14px;font-size:14px}
+.wh p{margin:0 0 8px}
+.wh .big{font:600 34px/1.1 var(--head);color:#24506e}
+
+@media (max-width: 1240px){
+  .nav{display:none}
+  .burger{display:block}
+  .nav.open{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--bg);border-bottom:1px solid var(--line);margin:0;padding:6px max(16px, env(safe-area-inset-right,0px)) 12px max(16px, env(safe-area-inset-left,0px))}
+  .nav.open a{padding:10px 0;border-bottom:1px solid var(--line)}
+}
+@media (max-width: 1040px){
+  .hero .in{grid-template-columns:minmax(0,1fr);gap:28px}
+  .facts .in{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .foot .in{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width: 760px){
+  .cols2,.opt .in,.pv{grid-template-columns:minmax(0,1fr)}
+  .svc{grid-template-columns:minmax(0,1fr)}
+  .tel{display:none}
+  .form{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width: 480px){
+  .hdr .in{gap:10px}
+  .logo svg{width:38px;height:38px}
+  .logo b{font-size:19px}
+  .logo small{display:none}
+  .cartbtn .cl{display:none}
+  .facts .in,.steps,.foot .in{grid-template-columns:minmax(0,1fr)}
+  .cat span{font-size:16px;padding:22px 10px 10px}
+  .sec{padding-block:40px}
+  .cookie{flex-direction:column;align-items:stretch}
+  .chat li{max-width:94%}
+}
+</style>
+</head>
+<body>
+
+<div class="strip"><div class="in">
+  <span>Доставим сегодня, если заказать до 17:00 · бесплатно от 3 000 ₽</span>
+  <span><span class="dot" id="openDot"></span><span id="openNow">Ежедневно с 8:00 до 21:00</span></span>
+</div></div>
+
+<header class="hdr" id="top">
+  <div class="in">
+    <a class="logo" href="#top" aria-label="Мясная «Дядя Тома», на главную">
+      <svg viewBox="0 0 44 44" aria-hidden="true"><rect width="44" height="44" rx="9" fill="#a3231f"/><g transform="translate(22 22) scale(1.08) rotate(-38) translate(-22.6 -21)"><path d="M5 15.5h19.5v10.5c-6 2.6-13.5 2.6-19.5 0.6z" fill="#fff"/><path d="M6 25.6c6 1.7 12.6 1.6 18.5-0.4" stroke="#a3231f" stroke-opacity=".28" stroke-width="1" fill="none"/><rect x="24.5" y="18" width="2.2" height="5.4" fill="#e9e5e0"/><rect x="26.7" y="18.4" width="13.5" height="4.6" rx="2.1" fill="#d9a441"/><circle cx="30.3" cy="20.7" r=".75" fill="#7d1714"/><circle cx="35.3" cy="20.7" r=".75" fill="#7d1714"/></g></svg>
+      <span><b>Дядя Тома</b><small>МЯСНАЯ ЛАВКА · С 2004 ГОДА</small></span>
+    </a>
+    <nav class="nav" id="nav" aria-label="Разделы сайта">
+      <a href="#catalog">Каталог</a>
+      <a href="#catalog" data-cat="semi">Шашлык и гриль</a>
+      <a href="#razdelka">Разделка</a>
+      <a href="#dostavka">Доставка и оплата</a>
+      <a href="#opt">Оптовикам</a>
+      <a href="#kontakty">Контакты</a>
+    </nav>
+    <div class="hdr-r">
+      <div class="tel"><a href="tel:+70124755800">+7 (012) 475-58-00</a><small>приём заказов 8:00–20:00</small></div>
+      <button class="cartbtn" type="button" id="cartBtn" aria-label="Открыть корзину">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.4 11h11l2-8H6.2"/><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/></svg>
+        <span class="cl" id="cartSum">Корзина</span><em id="cartCount" hidden>0</em>
+      </button>
+      <button class="burger" type="button" id="burger" aria-label="Меню" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="in">
+      <div>
+        <h1>Охлаждённое мясо <span>с фермы</span> к&nbsp;вашему столу</h1>
+        <p>Говядина, свинина, баранина и птица из хозяйств нашей области. Разделаем под ваш рецепт и привезём в термосумке в тот же день.</p>
+        <div class="acts"><a class="btn" href="#catalog">Выбрать мясо</a><a class="btn ghost" href="#dostavka">Условия доставки</a></div>
+      </div>
+      <figure><img id="heroImg" alt="Стейки рибай, говяжья вырезка и свиные отбивные на разделочной доске с розмарином и солью"></figure>
+    </div>
+  </section>
+
+  <div class="facts"><div class="in">
+    <div class="fact"><svg viewBox="0 0 34 34" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 9h17v14H3zM20 14h6l5 5v4H20"/><circle cx="9" cy="25" r="3" fill="#fff"/><circle cx="25" cy="25" r="3" fill="#fff"/></svg><div><b>Доставка в день заказа</b><span>При заказе до 17:00, интервал 2 часа</span></div></div>
+    <div class="fact"><svg viewBox="0 0 34 34" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M17 3l11 4v9c0 8-5 12-11 15C11 28 6 24 6 16V7z"/><path d="M12 17l4 4 7-8" stroke-linecap="round"/></svg><div><b>Ветеринарный контроль</b><span>Документы на каждую партию в системе «Меркурий»</span></div></div>
+    <div class="fact"><svg viewBox="0 0 34 34" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M5 22L22 5l6 6-17 17H5z"/><path d="M19 19l9 9" stroke-linecap="round"/></svg><div><b>Разделка бесплатно</b><span>Стейки, гуляш, фарш при вас</span></div></div>
+    <div class="fact"><svg viewBox="0 0 34 34" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M17 4c5 5 9 9 9 15a9 9 0 0 1-18 0c0-6 4-10 9-15z"/><path d="M13 20a4 4 0 0 0 4 4" stroke-linecap="round"/></svg><div><b>Никогда не замораживаем</b><span>Без растворов и «прокачки» водой</span></div></div>
+  </div></div>
+
+  <section class="sec">
+    <div class="in">
+      <div class="sec-h"><div><h2>Что будем готовить?</h2><p>Выберите раздел, чтобы посмотреть всё мясо этой категории.</p></div></div>
+      <div class="cats" id="cats"></div>
+    </div>
+  </section>
+
+  <section class="sec alt" id="catalog">
+    <div class="in">
+      <div class="sec-h"><div><h2 id="gridTitle">Каталог</h2><p>Цена указана за килограмм. Мясо продаётся на вес, поэтому итоговую сумму курьер уточнит при получении.</p></div></div>
+      <div class="tools">
+        <div class="chips" id="chips"></div>
+        <form class="find" id="findForm" role="search">
+          <label class="sr" for="q">Поиск по каталогу</label>
+          <input id="q" type="search" placeholder="Поиск: рибай, фарш…">
+          <label class="sr" for="sort">Сортировка</label>
+          <select id="sort">
+            <option value="pop">Сначала популярные</option>
+            <option value="asc">Сначала дешевле</option>
+            <option value="desc">Сначала дороже</option>
+          </select>
+        </form>
+      </div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="razdelka">
+    <div class="in cols2">
+      <div>
+        <div class="sec-h"><div><h2>Разделаем под ваш рецепт</h2><p>Укажите способ разделки в карточке товара или в комментарии к заказу. Мясник подготовит всё перед отправкой.</p></div></div>
+        <div class="svc">
+          <div><b>Стейки нужной толщины</b><span>Рибай, стриплойн, корейка на кости — от 2 до 5 см.</span></div>
+          <div><b>Фарш при вас</b><span>Прокрутим любой кусок, можно с вашим соотношением жирности.</span></div>
+          <div><b>Нарезка на шашлык</b><span>Куски по 4–5 см, маринуем по нашему рецепту без уксуса.</span></div>
+          <div><b>Вакуумная упаковка</b><span>Бесплатно для заказов от 2 кг. Мясо хранится дольше.</span></div>
+        </div>
+      </div>
+      <figure class="about-fig"><img id="aboutImg" alt="Мясник разделывает говяжью лопатку в цехе"></figure>
+    </div>
+  </section>
+
+  <section class="sec alt">
+    <div class="in">
+      <div class="sec-h"><div><h2>Как проходит заказ</h2></div></div>
+      <ol class="steps">
+        <li><b>Вы оформляете заказ</b><span>На сайте или по телефону. Менеджер перезвонит, чтобы уточнить детали.</span></li>
+        <li><b>Мясник собирает его</b><span>Взвешиваем и разделываем утром в день доставки.</span></li>
+        <li><b>Курьер везёт в термосумке</b><span>С хладоэлементами. Мясо приезжает охлаждённым.</span></li>
+        <li><b>Оплата при получении</b><span>По точному весу: картой, по СБП или наличными.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec" id="dostavka">
+    <div class="in cols2">
+      <div class="prose">
+        <div class="sec-h"><div><h2>Доставка и оплата</h2></div></div>
+        <p>Заказы, оформленные до 17:00, привозим в тот же день. Интервалы доставки по два часа, с 10:00 до 21:00. Перед выездом курьер позвонит.</p>
+        <p>Мясо продаётся на вес, поэтому сумма в чеке может отличаться от суммы на сайте на 5–10%. Мы не списываем деньги заранее: вы платите только за то, что получили.</p>
+        <p>Минимальная сумма заказа с доставкой — 1 500 ₽. Самовывоз из обоих магазинов бесплатно, заказ будет готов через час.</p>
+        <div class="pay"><span>Карта «Мир»</span><span>Visa / Mastercard</span><span>СБП</span><span>Наличные</span><span>Счёт для юрлиц</span></div>
+      </div>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>Район</th><th>Доставка</th><th>Бесплатно от</th></tr></thead>
+          <tbody>
+            <tr><td>Центральный</td><td class="num">290 ₽</td><td class="num">3 000 ₽</td></tr>
+            <tr><td>Заводской</td><td class="num">290 ₽</td><td class="num">3 000 ₽</td></tr>
+            <tr><td>Северный</td><td class="num">350 ₽</td><td class="num">4 000 ₽</td></tr>
+            <tr><td>Пригород, до 15 км</td><td class="num">490 ₽</td><td class="num">6 000 ₽</td></tr>
+            <tr><td>Самовывоз</td><td class="num">0 ₽</td><td class="num">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="opt" id="opt">
+    <div class="in">
+      <div>
+        <h2>Ресторанам, кафе и магазинам</h2>
+        <p>Поставляем охлаждённое мясо оптом по договору. Отдельный прайс, отсрочка платежа для постоянных клиентов и закреплённый менеджер.</p>
+        <ul><li>Поставки от 20 кг</li><li>Разделка по техкарте ресторана</li><li>Все ветеринарные документы</li></ul>
+      </div>
+      <div class="acts">
+        <button class="btn" type="button" data-login="1">Войти в личный кабинет</button>
+        <small>Нет договора? Позвоните: +7 (012) 475-58-00, доб. 2</small>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="o-nas">
+    <div class="in cols2">
+      <figure class="about-fig"><img id="shopImg" alt="Витрина лавки: стейки, фарш, колбаски и курица на лотках"></figure>
+      <div class="prose">
+        <div class="sec-h"><div><h2>О лавке</h2></div></div>
+        <p>Мы начинали в 2004 году с одного прилавка на городском рынке. Сегодня у нас два магазина и собственный разделочный цех.</p>
+        <p>Говядину привозим из хозяйства «Луговое» в 60 км от города, свинину и птицу — от поставщиков, с которыми работаем больше десяти лет. Фарш, котлеты, пельмени и колбаски делаем сами каждое утро.</p>
+        <div class="about-n"><div><b>22 года</b><span>работаем для города</span></div><div><b>2 магазина</b><span>и свой цех</span></div><div><b>6 мясников</b><span>в каждой смене</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec alt">
+    <div class="in">
+      <div class="sec-h"><div><h2>Частые вопросы</h2></div></div>
+      <div class="faq">
+        <details><summary>Почему сумма в корзине примерная?</summary><p>Мясо режут куском, поэтому вес почти никогда не совпадает с заказанным до грамма. Мы стараемся попасть в пределы 10% и всегда звоним, если кусок получается заметно тяжелее.</p></details>
+        <details><summary>Можно ли заморозить мясо после доставки?</summary><p>Да. Охлаждённое мясо можно заморозить в день покупки. Лучше разделить его на порции и упаковать в вакуум или плотный пакет.</p></details>
+        <details><summary>Сколько хранится охлаждённое мясо?</summary><p>При температуре от 0 до +4 °C — до трёх суток, фарш — не дольше суток. В вакуумной упаковке стейки хранятся до 10 дней.</p></details>
+        <details><summary>Есть ли у вас документы на мясо?</summary><p>На каждую партию оформляется ветеринарный сертификат в системе «Меркурий». Покажем его в магазине или пришлём по запросу.</p></details>
+        <details><summary>Что делать, если мясо не понравилось?</summary><p>Позвоните нам в день доставки. Мы заменим товар или вернём деньги, если с ним что-то не так.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="kontakty">
+    <div class="in cols2">
+      <div>
+        <div class="sec-h"><div><h2>Магазины</h2></div></div>
+        <div class="shops">
+          <div><b>ул. Заводская, 14</b><span>Ежедневно с 8:00 до 21:00 · вход со двора, парковка у входа</span></div>
+          <div><b>ул. Садовая, 3</b><span>Ежедневно с 9:00 до 20:00 · рядом с остановкой «Парк»</span></div>
+          <div><b>+7 (012) 475-58-00</b><span>Приём заказов с 8:00 до 20:00</span></div>
+          <div><b>Мы в соцсетях</b><div class="soc"><a href="#kontakty">Telegram</a><a href="#kontakty">WhatsApp</a><a href="#kontakty">ВКонтакте</a></div></div>
+        </div>
+      </div>
+      <div class="map" id="map"></div>
+    </div>
+  </section>
+</main>
+
+<main id="nf" hidden>
+  <section class="sec nf-top">
+    <div class="in">
+      <p class="code">404</p>
+      <h1>Такой страницы нет</h1>
+      <p>Возможно, её удалили или в адресе опечатка. Свежее мясо по-прежнему в каталоге.</p>
+      <div class="acts"><a class="btn" href="#catalog">Вернуться в каталог</a><a class="btn ghost" href="#top">На главную</a></div>
+    </div>
+  </section>
+  <section class="sec alt">
+    <div class="in">
+      <div class="sec-h"><div><h2>Хиты недели</h2><p>То, что чаще всего берут у нас в этом месяце.</p></div></div>
+      <div class="grid" id="nfGrid"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="in">
+    <div>
+      <a class="logo" href="#top"><svg viewBox="0 0 44 44" aria-hidden="true"><rect width="44" height="44" rx="9" fill="#a3231f"/><g transform="translate(22 22) scale(1.08) rotate(-38) translate(-22.6 -21)"><path d="M5 15.5h19.5v10.5c-6 2.6-13.5 2.6-19.5 0.6z" fill="#fff"/><path d="M6 25.6c6 1.7 12.6 1.6 18.5-0.4" stroke="#a3231f" stroke-opacity=".28" stroke-width="1" fill="none"/><rect x="24.5" y="18" width="2.2" height="5.4" fill="#e9e5e0"/><rect x="26.7" y="18.4" width="13.5" height="4.6" rx="2.1" fill="#d9a441"/><circle cx="30.3" cy="20.7" r=".75" fill="#7d1714"/><circle cx="35.3" cy="20.7" r=".75" fill="#7d1714"/></g></svg><span><b>Дядя Тома</b><small>МЯСНАЯ ЛАВКА · С 2004 ГОДА</small></span></a>
+      <p style="margin:14px 0 0;max-width:36ch">Охлаждённое фермерское мясо с доставкой по городу и пригороду.</p>
+    </div>
+    <div><h3>Покупателям</h3><ul><li><a href="#catalog">Каталог</a></li><li><a href="#dostavka">Доставка и оплата</a></li><li><a href="#razdelka">Разделка</a></li><li><a href="#kontakty">Магазины</a></li></ul></div>
+    <div><h3>Партнёрам</h3><ul><li><a href="#opt">Оптовые поставки</a></li><li><button class="lnk" type="button" data-login="1">Вход для оптовиков</button></li><li><a href="#opt">Поставщикам</a></li></ul></div>
+    <div><h3>Контакты</h3><ul><li>+7 (012) 475-58-00</li><li>ул. Заводская, 14</li><li>ул. Садовая, 3</li></ul></div>
+    <div class="legal">
+      <span>© 2004–2026 ИП Томилин А. В. · Мясная «Дядя Тома»</span>
+      <span><button class="lnk" type="button" data-doc="privacy">Политика конфиденциальности</button> · <button class="lnk" type="button" data-doc="terms">Пользовательское соглашение</button></span>
+      <span>Информация на сайте не является публичной офертой.</span>
+    </div>
+  </div>
+</footer>
+<div id="nfSlot"></div>
+
+<div class="shade" id="shade" hidden></div>
+<aside class="drawer" id="drawer" hidden aria-label="Корзина" role="dialog" aria-modal="true">
+  <div class="dr-h"><h2 id="drTitle">Корзина</h2><button class="x" type="button" id="drX" aria-label="Закрыть корзину">×</button></div>
+  <div class="dr-b" id="drBody"></div>
+  <div class="dr-f" id="drFoot"></div>
+</aside>
+
+<div class="modal" id="modal" hidden>
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-head"><h2 id="modalTitle"></h2><button class="x" type="button" id="modalX" aria-label="Закрыть окно">×</button></div>
+    <div class="modal-in" id="modalBody"></div>
+  </div>
+</div>
+
+<div class="cookie" id="cookie" hidden>
+  <p>Мы используем файлы cookie, чтобы сайт работал корректно. Продолжая пользоваться сайтом, вы соглашаетесь с <button class="lnk" type="button" data-doc="privacy">политикой конфиденциальности</button>.</p>
+  <button class="btn small" type="button" id="cookieOk">Хорошо</button>
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  // ---------- photos ----------
+  // Put real photos next to the page (e.g. photos/1.jpg) and list them here by product id;
+  // products without a photo get a drawn picture. 'hero', 'about', 'shop' are the big section pictures.
+  var PHOTO = {};
+  for (var pi = 1; pi <= 24; pi++) PHOTO[pi] = { thumb: 'photos/t/' + pi + '.webp', big: 'photos/' + pi + '.webp' };
+  PHOTO.hero = 'photos/hero.webp'; PHOTO.about = 'photos/about.webp'; PHOTO.shop = 'photos/shop.webp';
+  function photoFor(key, scale){ var ph = PHOTO[key]; return ph ? (typeof ph === 'string' ? ph : scale >= 3 ? ph.big : ph.thumb) : null; }
+
+  // ---------- catalogue ----------
+  var PHONE = '+7 (012) 475-58-00';
+  var CATS = [
+    { id: 'beef', name: 'Говядина', pic: 2 }, { id: 'pork', name: 'Свинина', pic: 6 }, { id: 'lamb', name: 'Баранина', pic: 9 },
+    { id: 'bird', name: 'Птица', pic: 12 }, { id: 'mince', name: 'Фарш', pic: 14 }, { id: 'offal', name: 'Субпродукты', pic: 16 },
+    { id: 'semi', name: 'Шашлык и полуфабрикаты', pic: 18 }, { id: 'deli', name: 'Деликатесы', pic: 23 }
+  ];
+  var FARM = 'Ферма «Луговое»';
+  var P = [
+    { id: 1, cat: 'beef', name: 'Вырезка говяжья', price: 2890, img: 'tenderloin', badge: 'hit', pop: 9, tags: ['Охлаждённая', FARM], desc: 'Самая нежная часть туши, почти без жира. Подходит для медальонов, бефстроганова, тартара и ростбифа.', cut: ['Целым куском', 'Медальоны 3 см', 'Соломкой на бефстроганов'] },
+    { id: 2, cat: 'beef', name: 'Рибай, сухая выдержка 21 день', price: 3990, img: 'ribeye', badge: 'new', pop: 8, tags: ['Мраморная', 'Выдержка 21 день'], desc: 'Стейк из толстого края с прожилками жира. Бычки зернового откорма, выдержка в камере 21 день.', cut: ['Стейки 2,5 см', 'Стейки 3,5 см', 'Целым куском'] },
+    { id: 3, cat: 'beef', name: 'Лопатка говяжья без кости', price: 860, img: 'beefchunk', pop: 6, tags: ['Охлаждённая', FARM], desc: 'Для тушения, гуляша, плова и домашнего фарша.', cut: ['Целым куском', 'Гуляш 3 см', 'Фарш'] },
+    { id: 4, cat: 'beef', name: 'Грудинка говяжья на кости', price: 590, img: 'brisket', pop: 3, tags: ['Охлаждённая'], desc: 'Для наваристых бульонов, борща и щей.', cut: ['Целым куском', 'Порубить на куски'] },
+    { id: 5, cat: 'pork', name: 'Шея свиная', price: 640, img: 'neck', badge: 'hit', pop: 10, tags: ['Охлаждённая'], desc: 'Сочная часть с прослойками жира. Лучший выбор для шашлыка, стейков на гриле и запекания.', cut: ['Целым куском', 'Стейки 2 см', 'На шашлык'] },
+    { id: 6, cat: 'pork', name: 'Корейка свиная на кости', price: 590, img: 'chop', pop: 6, tags: ['Охлаждённая'], desc: 'Нарежем на отбивные или котлеты на косточке нужной толщины.', cut: ['Целым куском', 'Котлеты на кости 2 см', 'Отбивные'] },
+    { id: 7, cat: 'pork', name: 'Рёбрышки свиные', price: 520, img: 'ribs', pop: 7, tags: ['Охлаждённые'], desc: 'Мясистые рёбра для гриля, духовки и копчения.', cut: ['Пластом', 'По 2–3 ребра'] },
+    { id: 8, cat: 'pork', name: 'Окорок свиной без кости', price: 470, img: 'porkchunk', pop: 4, tags: ['Охлаждённый'], desc: 'Для буженины, запекания целым куском и котлет.', cut: ['Целым куском', 'Гуляш 3 см', 'Фарш'] },
+    { id: 9, cat: 'lamb', name: 'Каре ягнёнка', price: 3150, img: 'rack', pop: 4, tags: ['Охлаждённое', 'Молодой ягнёнок'], desc: 'Корейка молодого барашка с зачищенными косточками. Запекается за 20–25 минут.', cut: ['Целым каре', 'По 2 косточки'] },
+    { id: 10, cat: 'lamb', name: 'Лопатка баранья', price: 1090, img: 'lambchunk', pop: 3, tags: ['Охлаждённая'], desc: 'Для плова, шурпы и тушения с овощами.', cut: ['Целым куском', 'Порубить на куски', 'Без кости кубиком'] },
+    { id: 11, cat: 'bird', name: 'Филе куриное', price: 420, img: 'fillet', badge: 'hit', pop: 9, tags: ['Охлаждённое', 'Поставка каждый день'], desc: 'Грудка без кожи и кости. Привозим с птицефабрики области каждое утро.', cut: ['Целым филе', 'Кубиком', 'Отбить'] },
+    { id: 12, cat: 'bird', name: 'Голень куриная', price: 270, img: 'drumsticks', pop: 6, tags: ['Охлаждённая'], desc: 'Для запекания, жарки и бульона.', cut: ['Как есть'] },
+    { id: 13, cat: 'bird', name: 'Цыплёнок-бройлер, тушка', price: 290, img: 'chicken', pop: 5, tags: ['Охлаждённый', '≈ 1,8 кг'], desc: 'Тушка весом 1,6–2 кг. По просьбе разделаем на 8 частей или сделаем «табака».', cut: ['Целой тушкой', 'На 8 частей', 'Табака'] },
+    { id: 14, cat: 'mince', name: 'Фарш «Домашний»', price: 590, img: 'mince', badge: 'hit', pop: 10, tags: ['Свежий каждое утро'], desc: 'Говядина и свинина пополам. Крутим каждое утро, без добавок и соли.', cut: ['Стандартный помол', 'Мелкий помол'] },
+    { id: 15, cat: 'mince', name: 'Фарш говяжий', price: 760, img: 'mince2', pop: 5, tags: ['Свежий каждое утро', 'Жирность ≈ 15%'], desc: 'Из говяжьей лопатки и шеи. Для котлет, бургеров и болоньезе.', cut: ['Стандартный помол', 'Крупный, для бургеров'] },
+    { id: 16, cat: 'offal', name: 'Печень говяжья', price: 420, img: 'liver', pop: 4, tags: ['Охлаждённая'], desc: 'Без плёнок и протоков. Для жарки и паштетов.', cut: ['Целым куском', 'Ломтиками 1 см'] },
+    { id: 17, cat: 'offal', name: 'Сердце говяжье', price: 460, img: 'heart', pop: 2, tags: ['Охлаждённое'], desc: 'Для тушения, салатов и начинки для пирогов.', cut: ['Целым', 'Зачистить и нарезать'] },
+    { id: 18, cat: 'semi', name: 'Шашлык из свиной шеи', price: 690, old: 820, img: 'kebab', badge: 'sale', pop: 10, tags: ['Маринад без уксуса'], desc: 'Шея в маринаде с луком, чёрным перцем и кориандром. Готов к жарке через 4 часа после покупки.', cut: ['Как есть'] },
+    { id: 19, cat: 'semi', name: 'Колбаски для гриля', price: 790, img: 'sausages', pop: 7, tags: ['Натуральная оболочка'], desc: 'Свинина и говядина с чесноком и паприкой. Делаем сами в цехе.', cut: ['Как есть'] },
+    { id: 20, cat: 'semi', name: 'Пельмени ручной лепки', price: 760, img: 'pelmeni', badge: 'hit', pop: 9, pack: 'Пачка 1 кг', tags: ['Ручная лепка', 'Шоковая заморозка'], desc: 'Тесто на яйцах, фарш из говядины и свинины. Лепим вручную и сразу замораживаем.', cut: null },
+    { id: 21, cat: 'semi', name: 'Котлеты «Домашние»', price: 420, img: 'cutlets', pop: 6, pack: '6 шт., ≈ 600 г', tags: ['Без хлеба и сои'], desc: 'Из фарша «Домашний» с луком и зеленью. Готовим каждое утро.', cut: null },
+    { id: 22, cat: 'deli', name: 'Сало солёное с чесноком', price: 720, img: 'salo', pop: 5, tags: ['Сухой посол'], desc: 'Засолка сухим способом с чесноком, чёрным перцем и лавровым листом.', cut: ['Куском', 'Нарезать тонко'] },
+    { id: 23, cat: 'deli', name: 'Грудинка копчёная', price: 1090, img: 'smoked', badge: 'new', pop: 6, tags: ['Ольховая щепа'], desc: 'Горячее копчение на ольховой щепе в нашем цехе.', cut: ['Куском', 'Нарезать тонко'] },
+    { id: 24, cat: 'deli', name: 'Буженина запечённая', price: 1290, img: 'roast', pop: 5, tags: ['Свой цех'], desc: 'Свиной окорок, запечённый с чесноком и травами. Нарежем тонко.', cut: ['Куском', 'Нарезать тонко'] }
+  ];
+  var BY_ID = {};
+  P.forEach(function(p){ BY_ID[p.id] = p; });
+  var BADGE = { hit: 'Хит', new: 'Новинка', sale: 'Скидка' };
+  var WEIGHTS = [0.5, 1, 2];
+
+  function money(n){ return Math.round(n).toLocaleString('ru-RU').replace(/ /g, ' '); }
+  function wfmt(q){ return (q % 1 ? q.toFixed(1).replace('.', ',') : String(q)) + ' кг'; }
+  function amount(p, q){ return p.pack ? q + ' уп.' : wfmt(q); }
+  function plural(n, a, b, c){ var m10 = n % 10, m100 = n % 100; if (m10 === 1 && m100 !== 11) return a; if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return b; return c; }
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+  // ---------- drawn pictures (used where no real photo is set) ----------
+  function mulberry(a){ return function(){ a |= 0; a = a + 0x6D2B79F5 | 0; var t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  function smoothPath(pts){
+    var p = new Path2D(), n = pts.length;
+    p.moveTo(pts[0][0], pts[0][1]);
+    for (var i = 0; i < n; i++) {
+      var p0 = pts[(i - 1 + n) % n], p1 = pts[i], p2 = pts[(i + 1) % n], p3 = pts[(i + 2) % n];
+      p.bezierCurveTo(p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6, p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6, p2[0], p2[1]);
+    }
+    p.closePath();
+    return p;
+  }
+  // a rounded, slightly irregular outline; e < 1 makes it boxier, like a slab
+  function blob(cx, cy, rx, ry, n, jit, r, rot, e){
+    var pts = [], c = Math.cos(rot || 0), s = Math.sin(rot || 0); e = e || 1;
+    for (var i = 0; i < n; i++) {
+      var a = i / n * Math.PI * 2, k = 1 + (r() - 0.5) * jit, ca = Math.cos(a), sa = Math.sin(a);
+      var x = Math.sign(ca) * Math.pow(Math.abs(ca), e) * rx * k, y = Math.sign(sa) * Math.pow(Math.abs(sa), e) * ry * k;
+      pts.push([cx + x * c - y * s, cy + x * s + y * c]);
+    }
+    return smoothPath(pts);
+  }
+  function teardrop(cx, cy, rx, ry, rot, r){
+    var pts = [], c = Math.cos(rot), s = Math.sin(rot);
+    for (var i = 0; i < 16; i++) {
+      var a = i / 16 * Math.PI * 2, k = 1 + (r() - 0.5) * 0.08;
+      var x = Math.cos(a) * rx * k, y = Math.sin(a) * ry * k * (0.62 + 0.38 * Math.cos(a));
+      pts.push([cx + x * c - y * s, cy + x * s + y * c]);
+    }
+    return smoothPath(pts);
+  }
+  function shadow(g, cx, cy, rx, ry, a){
+    g.save(); g.translate(cx, cy); g.scale(rx / ry, 1);
+    var gr = g.createRadialGradient(0, 0, 0, 0, 0, ry);
+    gr.addColorStop(0, 'rgba(40,20,10,' + a + ')'); gr.addColorStop(1, 'rgba(40,20,10,0)');
+    g.fillStyle = gr; g.beginPath(); g.arc(0, 0, ry, 0, Math.PI * 2); g.fill(); g.restore();
+  }
+  function gloss(g, x, y, rx, ry, a){
+    g.save(); g.translate(x, y); g.scale(rx / ry, 1);
+    var gr = g.createRadialGradient(0, 0, 0, 0, 0, ry);
+    gr.addColorStop(0, 'rgba(255,255,255,' + a + ')'); gr.addColorStop(1, 'rgba(255,255,255,0)');
+    g.fillStyle = gr; g.beginPath(); g.arc(0, 0, ry, 0, Math.PI * 2); g.fill(); g.restore();
+  }
+  function dots(g, b, n, colors, r0, r1, r){
+    for (var i = 0; i < n; i++) { g.fillStyle = colors[(r() * colors.length) | 0]; g.beginPath(); g.arc(b[0] + r() * b[2], b[1] + r() * b[3], r0 + r() * (r1 - r0), 0, Math.PI * 2); g.fill(); }
+  }
+  var BEEF = ['#b8292d', '#78141a'], PORK = ['#e8a199', '#bf6b63'], LAMB = ['#a8302f', '#661517'], CHIX = ['#f6cfc0', '#e0a593'], SKIN = ['#f6dfc1', '#e0b88d'];
+  var LIVER = ['#6e1e21', '#36090c'], FATC = ['#fbf4e6', '#e7d4b3'], BONEC = ['#f4ecdb', '#d6c39d'];
+
+  // raw meat surface: colour, mottling, grain, marbling, wet shine
+  function meat(g, path, col, r, o){
+    var b = o.box;
+    g.save(); g.clip(path);
+    var gr = g.createLinearGradient(b[0], b[1], b[0] + b[2], b[1] + b[3]);
+    gr.addColorStop(0, col[0]); gr.addColorStop(1, col[1]);
+    g.fillStyle = gr; g.fillRect(b[0] - 60, b[1] - 60, b[2] + 120, b[3] + 120);
+    var i, x, y, rad, mg;
+    for (i = 0; i < 36; i++) {
+      x = b[0] + r() * b[2]; y = b[1] + r() * b[3]; rad = 6 + r() * 18;
+      mg = g.createRadialGradient(x, y, 0, x, y, rad);
+      var light = r() < 0.5, a = 0.05 + r() * 0.08;
+      mg.addColorStop(0, light ? 'rgba(255,235,230,' + a + ')' : 'rgba(50,0,0,' + a + ')'); mg.addColorStop(1, 'rgba(0,0,0,0)');
+      g.fillStyle = mg; g.fillRect(x - rad, y - rad, rad * 2, rad * 2);
+    }
+    if (o.fibre != null) {
+      var ca = Math.cos(o.fibre), sa = Math.sin(o.fibre);
+      g.lineWidth = 0.6;
+      for (i = 0; i < 70; i++) {
+        var px = b[0] + r() * b[2], py = b[1] + r() * b[3], L = 14 + r() * 36;
+        g.strokeStyle = 'rgba(40,0,0,' + (0.07 + r() * 0.1).toFixed(2) + ')';
+        g.beginPath(); g.moveTo(px, py); g.quadraticCurveTo(px + ca * L * 0.5 + (r() - 0.5) * 4, py + sa * L * 0.5 + (r() - 0.5) * 4, px + ca * L, py + sa * L); g.stroke();
+      }
+    }
+    var nm = Math.round((o.marb || 0) * 70);
+    g.lineCap = 'round'; g.lineJoin = 'round';
+    for (i = 0; i < nm; i++) {
+      var mx = b[0] + r() * b[2], my = b[1] + r() * b[3], ang = r() * Math.PI * 2;
+      g.strokeStyle = 'rgba(255,238,230,' + (0.22 + r() * 0.38).toFixed(2) + ')'; g.lineWidth = 0.4 + r() * 1.1;
+      g.beginPath(); g.moveTo(mx, my);
+      var steps = 4 + ((r() * 6) | 0);
+      for (var k = 0; k < steps; k++) { ang += (r() - 0.5) * 1.8; var nx = mx + Math.cos(ang) * (3 + r() * 4), ny = my + Math.sin(ang) * (3 + r() * 4); g.quadraticCurveTo((mx + nx) / 2 + (r() - 0.5) * 3, (my + ny) / 2 + (r() - 0.5) * 3, nx, ny); mx = nx; my = ny; }
+      g.stroke();
+    }
+    var sp = (o.specks || 0) + Math.round(nm * 0.6);
+    if (sp) dots(g, b, sp, ['rgba(255,242,232,0.6)', 'rgba(255,230,220,0.4)'], 0.4, 1.4, r);
+    g.strokeStyle = 'rgba(40,0,0,0.16)'; g.lineWidth = 12; g.stroke(path);
+    g.strokeStyle = 'rgba(40,0,0,0.22)'; g.lineWidth = 4; g.stroke(path);
+    if (o.gloss !== false) {
+      gloss(g, b[0] + b[2] * (o.gx || 0.35), b[1] + b[3] * (o.gy || 0.3), b[2] * 0.28, b[3] * 0.16, o.glossA || 0.24);
+      for (i = 0; i < 6; i++) gloss(g, b[0] + r() * b[2], b[1] + r() * b[3] * 0.7, 3 + r() * 6, 1.5 + r() * 2, 0.35);
+    }
+    g.restore();
+  }
+  function fat(g, path, r, b){
+    g.save(); g.clip(path);
+    var gr = g.createLinearGradient(b[0], b[1], b[0] + b[2], b[1] + b[3]);
+    gr.addColorStop(0, FATC[0]); gr.addColorStop(1, FATC[1]);
+    g.fillStyle = gr; g.fillRect(b[0] - 60, b[1] - 60, b[2] + 120, b[3] + 120);
+    dots(g, b, Math.round(b[2] * b[3] / 60), ['rgba(220,190,150,0.25)', 'rgba(255,255,255,0.5)', 'rgba(230,170,160,0.2)'], 1, 4, r);
+    g.strokeStyle = 'rgba(150,110,70,0.25)'; g.lineWidth = 4; g.stroke(path);
+    gloss(g, b[0] + b[2] * 0.4, b[1] + b[3] * 0.3, b[2] * 0.25, b[3] * 0.15, 0.4);
+    g.restore();
+  }
+  function bone(g, path, r, b){
+    g.save(); g.clip(path);
+    var gr = g.createLinearGradient(b[0], b[1], b[0] + b[2], b[1] + b[3]);
+    gr.addColorStop(0, BONEC[0]); gr.addColorStop(1, BONEC[1]);
+    g.fillStyle = gr; g.fillRect(b[0] - 60, b[1] - 60, b[2] + 120, b[3] + 120);
+    dots(g, b, Math.round(b[2] * b[3] / 40), ['rgba(170,130,90,0.25)', 'rgba(200,120,110,0.18)'], 0.5, 1.6, r);
+    g.strokeStyle = 'rgba(120,90,50,0.35)'; g.lineWidth = 2.5; g.stroke(path);
+    g.restore();
+  }
+  // minced texture: short curled strands, used for mince, cutlets and sausages
+  function mincing(g, path, b, r, n, cols){
+    g.save(); g.clip(path);
+    g.fillStyle = cols[0]; g.fillRect(b[0] - 30, b[1] - 30, b[2] + 60, b[3] + 60);
+    g.lineCap = 'round';
+    for (var i = 0; i < n; i++) {
+      var x = b[0] + r() * b[2], y = b[1] + r() * b[3], a = r() * Math.PI * 2, L = 3 + r() * 5;
+      g.strokeStyle = cols[1 + ((r() * (cols.length - 1)) | 0)]; g.lineWidth = 1.4 + r() * 1.2;
+      g.beginPath(); g.moveTo(x, y); g.quadraticCurveTo(x + Math.cos(a + 1) * L, y + Math.sin(a + 1) * L, x + Math.cos(a) * L * 1.6, y + Math.sin(a) * L * 1.6); g.stroke();
+    }
+    g.restore();
+  }
+  function shade(g, path, b, light, dark){
+    g.save(); g.clip(path);
+    var gr = g.createLinearGradient(b[0], b[1], b[0], b[1] + b[3]);
+    gr.addColorStop(0, 'rgba(255,255,255,' + light + ')'); gr.addColorStop(0.5, 'rgba(0,0,0,0)'); gr.addColorStop(1, 'rgba(30,0,0,' + dark + ')');
+    g.fillStyle = gr; g.fillRect(b[0], b[1], b[2], b[3]);
+    g.strokeStyle = 'rgba(30,0,0,0.22)'; g.lineWidth = 6; g.stroke(path);
+    g.restore();
+  }
+  function rosemary(g, x, y, len, ang, r){
+    g.save(); g.translate(x, y); g.rotate(ang);
+    g.strokeStyle = '#6b5a2e'; g.lineWidth = 1.6; g.beginPath(); g.moveTo(0, 0); g.quadraticCurveTo(len * 0.5, -4, len, 0); g.stroke();
+    for (var i = 0; i < len / 3; i++) {
+      var t = i * 3, side = i % 2 ? 1 : -1;
+      g.save(); g.translate(t, -4 * Math.sin(t / len * Math.PI)); g.rotate(side * (0.6 + r() * 0.3) - 0.3);
+      g.fillStyle = r() < 0.5 ? '#3f6b2a' : '#557f36'; g.beginPath(); g.ellipse(5, 0, 6, 1.4, 0, 0, Math.PI * 2); g.fill(); g.restore();
+    }
+    g.restore();
+  }
+  function peppercorns(g, b, n, r){
+    for (var i = 0; i < n; i++) { var x = b[0] + r() * b[2], y = b[1] + r() * b[3]; g.fillStyle = '#2a1a12'; g.beginPath(); g.arc(x, y, 1.8 + r() * 0.8, 0, Math.PI * 2); g.fill(); g.fillStyle = 'rgba(255,255,255,0.35)'; g.beginPath(); g.arc(x - 0.6, y - 0.6, 0.6, 0, Math.PI * 2); g.fill(); }
+  }
+  function onionRing(g, x, y, rx, ry, rot){
+    g.save(); g.translate(x, y); g.rotate(rot);
+    g.strokeStyle = '#b892bd'; g.lineWidth = 4.2; g.beginPath(); g.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2); g.stroke();
+    g.strokeStyle = '#f6effa'; g.lineWidth = 2.6; g.beginPath(); g.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2); g.stroke();
+    g.restore();
+  }
+
+  // each product is drawn in a 260 × 195 box
+  var DRAW = {
+    ribeye: function(g, r){
+      shadow(g, 132, 152, 104, 20, 0.35);
+      var p = blob(130, 98, 98, 66, 14, 0.16, r, -0.08);
+      meat(g, p, BEEF, r, { box: [30, 30, 200, 135], marb: 1.2, fibre: 0.4 });
+      g.save(); g.clip(p); g.lineWidth = 18; g.strokeStyle = '#f0e2c6'; g.beginPath(); g.ellipse(130, 98, 98, 66, -0.08, Math.PI * 0.98, Math.PI * 1.58); g.stroke();
+      dots(g, [30, 30, 110, 70], 40, ['rgba(220,190,150,0.35)', 'rgba(255,255,255,0.5)'], 1, 3, r); g.restore();
+      fat(g, blob(150 + (r() - 0.5) * 16, 92, 22, 14, 9, 0.4, r, 0.4), r, [125, 75, 52, 36]);
+    },
+    tenderloin: function(g, r){
+      shadow(g, 112, 140, 108, 16, 0.3);
+      var p = blob(112, 92, 104, 30, 18, 0.06, r, -0.2, 0.75);
+      meat(g, p, BEEF, r, { box: [8, 50, 210, 90], fibre: -0.2, marb: 0.15 });
+      g.save(); g.clip(p);
+      for (var i = 0; i < 4; i++) { g.strokeStyle = 'rgba(232,234,244,0.26)'; g.lineWidth = 1.2 + r() * 2.4; g.beginPath(); var y0 = 80 + i * 8; g.moveTo(30 + r() * 30, y0 + 20); g.bezierCurveTo(80, y0 + (r() - 0.5) * 16, 130, y0 - 14 + (r() - 0.5) * 16, 170 + r() * 30, y0 - 28); g.stroke(); }
+      g.restore();
+      for (var k = 0; k < 2; k++) {
+        var cx = 178 + k * 40, cy = 140 - k * 12;
+        shadow(g, cx, cy + 22, 34, 8, 0.3);
+        var m = blob(cx, cy, 30, 25, 12, 0.08, r, 0);
+        meat(g, m, ['#c73a3d', '#8a191e'], r, { box: [cx - 30, cy - 25, 60, 50], marb: 0.35, specks: 6, gx: 0.4, gy: 0.35 });
+      }
+    },
+    beefchunk: function(g, r){ chunk(g, r, BEEF, 0.4, true); },
+    porkchunk: function(g, r){ chunk(g, r, PORK, 0.2, false); },
+    lambchunk: function(g, r){ chunk(g, r, LAMB, 0.5, true); },
+    brisket: function(g, r){
+      shadow(g, 130, 150, 112, 18, 0.32);
+      var p = blob(130, 100, 106, 52, 14, 0.08, r, -0.05, 0.6);
+      meat(g, p, BEEF, r, { box: [20, 45, 220, 110], fibre: 0.05, marb: 0.4 });
+      g.save(); g.clip(p);
+      var top = new Path2D(); top.moveTo(10, 40); top.lineTo(250, 40); top.lineTo(250, 78);
+      for (var x = 250; x >= 10; x -= 20) top.lineTo(x, 74 + r() * 10);
+      top.closePath(); fat(g, top, r, [10, 40, 240, 46]);
+      for (var i = 0; i < 4; i++) bone(g, blob(55 + i * 48, 118, 14, 9, 10, 0.2, r, 0), r, [40 + i * 48, 108, 30, 20]);
+      g.restore();
+    },
+    neck: function(g, r){
+      shadow(g, 120, 146, 110, 18, 0.32);
+      var p = blob(115, 100, 100, 46, 18, 0.06, r, -0.12, 0.7);
+      meat(g, p, ['#df8f86', '#a95149'], r, { box: [10, 50, 215, 100], fibre: -0.12, marb: 0.9 });
+      var face = blob(206, 88, 26, 44, 14, 0.06, r, -0.12);
+      meat(g, face, ['#f0aaa2', '#cc766d'], r, { box: [180, 44, 52, 88], marb: 1.6, specks: 10, gx: 0.45, gy: 0.4 });
+    },
+    chop: function(g, r){
+      for (var k = 0; k < 2; k++) {
+        var cx = 110 + k * 62, cy = 92 + k * 24, rot = -0.25 + k * 0.35;
+        shadow(g, cx + 6, cy + 46, 84, 14, 0.3);
+        var outer = blob(cx, cy, 78, 52, 14, 0.08, r, rot);
+        fat(g, outer, r, [cx - 80, cy - 55, 160, 110]);
+        meat(g, blob(cx + 6, cy + 2, 62, 38, 12, 0.1, r, rot), PORK, r, { box: [cx - 56, cy - 36, 124, 76], fibre: rot, marb: 0.5 });
+        var bn = blob(cx - 58, cy + 6, 10, 42, 10, 0.12, r, rot + 0.15);
+        bone(g, bn, r, [cx - 70, cy - 38, 24, 86]);
+      }
+    },
+    ribs: function(g, r){
+      shadow(g, 130, 150, 116, 18, 0.32);
+      var i;
+      for (i = 0; i < 7; i++) bone(g, blob(40 + i * 30, 138, 7, 12, 10, 0.15, r, 0.08), r, [32 + i * 30, 124, 16, 28]);
+      var p = blob(130, 96, 112, 48, 16, 0.08, r, -0.06, 0.55);
+      meat(g, p, ['#d8857c', '#9a463f'], r, { box: [16, 46, 228, 100], fibre: 1.5, marb: 0.4 });
+      g.save(); g.clip(p);
+      for (i = 0; i < 7; i++) { g.fillStyle = 'rgba(255,225,215,0.22)'; g.fillRect(36 + i * 30, 40, 9, 120); }
+      fat(g, blob(90, 66, 40, 10, 10, 0.3, r, -0.06), r, [50, 56, 80, 20]);
+      g.restore();
+    },
+    rack: function(g, r){
+      shadow(g, 130, 156, 110, 16, 0.32);
+      for (var i = 0; i < 7; i++) {
+        var x0 = 55 + i * 24, x1 = 78 + i * 25;
+        g.lineCap = 'round';
+        g.strokeStyle = '#b8a37b'; g.lineWidth = 11; g.beginPath(); g.moveTo(x0, 130); g.quadraticCurveTo(x0 + 6, 70, x1, 28 + (r() - 0.5) * 8); g.stroke();
+        g.strokeStyle = '#f2e8d4'; g.lineWidth = 7; g.beginPath(); g.moveTo(x0, 130); g.quadraticCurveTo(x0 + 6, 70, x1, 28 + (r() - 0.5) * 8); g.stroke();
+      }
+      var log = blob(130, 130, 108, 34, 18, 0.06, r, -0.02, 0.7);
+      meat(g, log, LAMB, r, { box: [20, 96, 220, 70], fibre: 0, marb: 0.4 });
+      g.save(); g.clip(log); var cap = new Path2D(); cap.rect(10, 90, 240, 22); fat(g, cap, r, [10, 90, 240, 22]); g.restore();
+    },
+    fillet: function(g, r){
+      for (var k = 0; k < 2; k++) {
+        var cx = 100 + k * 70, cy = 92 + k * 20, rot = -0.35 + k * 0.5;
+        shadow(g, cx + 4, cy + 36, 74, 12, 0.28);
+        var p = teardrop(cx, cy, 70, 40, rot, r);
+        meat(g, p, CHIX, r, { box: [cx - 80, cy - 50, 160, 100], fibre: rot, marb: 0.05, glossA: 0.4 });
+      }
+    },
+    drumsticks: function(g, r){
+      for (var k = 0; k < 3; k++) {
+        var ang = -0.5 + k * 0.45, cx = 90 + k * 40, cy = 120 - k * 6;
+        g.save(); g.translate(cx, cy); g.rotate(ang);
+        shadow(g, 30, 30, 70, 12, 0.25);
+        var shank = new Path2D(); shank.moveTo(0, -20); shank.quadraticCurveTo(40, -10, 78, -6); shank.lineTo(78, 6); shank.quadraticCurveTo(40, 12, 0, 22); shank.closePath();
+        meat(g, shank, SKIN, r, { box: [-10, -24, 92, 48], specks: 0, gloss: true, glossA: 0.3 });
+        bone(g, blob(86, 0, 11, 9, 10, 0.15, r, 0), r, [74, -10, 24, 20]);
+        var bulb = blob(-6, 0, 40, 30, 14, 0.06, r, 0);
+        meat(g, bulb, SKIN, r, { box: [-46, -30, 80, 60], glossA: 0.35 });
+        g.save(); g.clip(bulb); dots(g, [-46, -30, 80, 60], 40, ['rgba(190,140,100,0.3)', 'rgba(255,255,255,0.35)'], 0.6, 1.4, r); g.restore();
+        g.restore();
+      }
+    },
+    chicken: function(g, r){
+      shadow(g, 132, 158, 104, 18, 0.32);
+      var i;
+      for (i = -1; i <= 1; i += 2) { var w = blob(130 + i * 78, 96, 26, 40, 10, 0.12, r, i * 0.4); meat(g, w, ['#efcfa8', '#cf9c6f'], r, { box: [130 + i * 78 - 30, 54, 60, 84], glossA: 0.3 }); }
+      var body = blob(130, 98, 84, 62, 16, 0.05, r, 0);
+      meat(g, body, SKIN, r, { box: [46, 36, 168, 124], glossA: 0.32, gx: 0.4, gy: 0.28 });
+      g.save(); g.clip(body); g.strokeStyle = 'rgba(160,110,70,0.25)'; g.lineWidth = 2; g.beginPath(); g.moveTo(130, 44); g.quadraticCurveTo(126, 100, 130, 150); g.stroke();
+      dots(g, [46, 36, 168, 124], 120, ['rgba(190,140,100,0.25)', 'rgba(255,255,255,0.3)'], 0.6, 1.3, r); g.restore();
+      for (i = -1; i <= 1; i += 2) {
+        var leg = blob(130 + i * 40, 140, 26, 20, 12, 0.08, r, i * 0.5);
+        meat(g, leg, SKIN, r, { box: [130 + i * 40 - 28, 118, 56, 44], glossA: 0.35 });
+        bone(g, blob(130 + i * 26, 162, 7, 6, 8, 0.15, r, 0), r, [122 + i * 26, 155, 16, 14]);
+      }
+    },
+    mince: function(g, r){ minceMound(g, r, ['#c43b45', '#d6545e', '#ec9294', '#a2242f', '#f6d2cb']); },
+    mince2: function(g, r){ minceMound(g, r, ['#a92a32', '#bf3c44', '#d97376', '#86161f', '#f2c6c0']); },
+    liver: function(g, r){
+      shadow(g, 135, 150, 110, 16, 0.35);
+      var a = blob(110, 98, 88, 50, 12, 0.14, r, -0.2), b = blob(170, 112, 66, 40, 10, 0.14, r, 0.3);
+      meat(g, a, LIVER, r, { box: [20, 46, 180, 104], glossA: 0.4 });
+      meat(g, b, LIVER, r, { box: [104, 72, 132, 80], glossA: 0.45 });
+      g.save(); g.clip(a); for (var i = 0; i < 4; i++) { g.strokeStyle = 'rgba(255,255,255,0.35)'; g.lineWidth = 1.5; g.beginPath(); var x = 60 + i * 25; g.moveTo(x, 70); g.quadraticCurveTo(x + 14, 64 + r() * 6, x + 24, 72); g.stroke(); } g.restore();
+    },
+    heart: function(g, r){
+      shadow(g, 130, 160, 80, 14, 0.35);
+      var pts = [], i;
+      for (i = 0; i < 16; i++) { var t = i / 16 * Math.PI * 2, x = Math.sin(t) * 70 * (0.75 + 0.25 * Math.cos(t)), y = -Math.cos(t) * 62 + (Math.cos(t) < 0 ? 10 : 0); pts.push([130 + x + (r() - 0.5) * 4, 102 + y + (r() - 0.5) * 4]); }
+      var p = smoothPath(pts);
+      meat(g, p, ['#9a2730', '#4f0d15'], r, { box: [60, 40, 140, 126], glossA: 0.35, fibre: 1.2 });
+      g.save(); g.clip(p); var cap = blob(130, 48, 70, 22, 12, 0.25, r, 0); fat(g, cap, r, [60, 26, 140, 44]); g.restore();
+      for (i = -1; i <= 1; i += 2) { g.lineCap = 'round'; g.strokeStyle = '#c98e86'; g.lineWidth = 15; g.beginPath(); g.moveTo(130 + i * 18, 48); g.lineTo(130 + i * 26, 22); g.stroke(); g.strokeStyle = '#ebc0b8'; g.lineWidth = 10; g.stroke(); g.fillStyle = '#7a3b3b'; g.beginPath(); g.ellipse(130 + i * 26, 21, 4, 2.5, 0, 0, Math.PI * 2); g.fill(); }
+    },
+    kebab: function(g, r){
+      var k, i;
+      for (k = 0; k < 2; k++) {
+        var y0 = 70 + k * 64, x0 = 18, x1 = 244, dy = -18;
+        shadow(g, 130, y0 + 30, 112, 10, 0.25);
+        g.lineCap = 'round'; g.strokeStyle = '#8b8f95'; g.lineWidth = 3; g.beginPath(); g.moveTo(x0, y0); g.lineTo(x1, y0 + dy); g.stroke();
+        g.strokeStyle = '#e5e8ec'; g.lineWidth = 1; g.beginPath(); g.moveTo(x0, y0 - 1); g.lineTo(x1, y0 + dy - 1); g.stroke();
+        for (i = 0; i < 6; i++) {
+          var t = 0.12 + i * 0.15, cx = x0 + (x1 - x0) * t, cy = y0 + dy * t;
+          if (i % 2) onionRing(g, cx - 13, cy, 4, 15, 0.1);
+          var ch = blob(cx, cy, 16, 17, 9, 0.35, r, r() * 3);
+          meat(g, ch, ['#c56240', '#7c2c16'], r, { box: [cx - 17, cy - 18, 34, 36], marb: 0.3, glossA: 0.3 });
+          g.save(); g.clip(ch); dots(g, [cx - 17, cy - 18, 34, 36], 10, ['#2a1a12', '#5a7d2e', '#c83a1e'], 0.5, 1.2, r); g.restore();
+        }
+      }
+      onionRing(g, 210, 168, 14, 7, 0.3); onionRing(g, 40, 170, 12, 6, -0.2);
+      rosemary(g, 150, 182, 60, -0.15, r);
+    },
+    sausages: function(g, r){
+      for (var k = 0; k < 4; k++) {
+        var cy = 60 + k * 30, rot = -0.08 + (r() - 0.5) * 0.06;
+        shadow(g, 130, cy + 18, 104, 8, 0.25);
+        var p = blob(130 + (k % 2) * 8, cy, 100, 14, 18, 0.04, r, rot, 0.6);
+        mincing(g, p, [26, cy - 18, 216, 36], r, 260, ['#c96a62', '#e6948b', '#a84942', '#f4d9cf']);
+        shade(g, p, [26, cy - 18, 216, 36], 0.18, 0.35);
+        g.save(); g.clip(p); g.strokeStyle = 'rgba(255,255,255,0.45)'; g.lineWidth = 2.5; g.beginPath(); g.moveTo(44, cy - 6); g.lineTo(212, cy - 8); g.stroke(); g.restore();
+        for (var e = -1; e <= 1; e += 2) { g.fillStyle = '#a0544a'; g.beginPath(); g.ellipse(130 + (k % 2) * 8 + e * 104, cy + e * rot * 100, 4, 3, 0, 0, Math.PI * 2); g.fill(); }
+      }
+    },
+    pelmeni: function(g, r){
+      for (var i = 0; i < 14; i++) {
+        var cx = 40 + (i % 5) * 46 + (r() - 0.5) * 10 + (Math.floor(i / 5) % 2) * 20, cy = 52 + Math.floor(i / 5) * 46 + (r() - 0.5) * 8;
+        if (cx > 236) continue;
+        g.save(); g.translate(cx, cy); g.rotate((r() - 0.5) * 1.6);
+        shadow(g, 2, 10, 22, 7, 0.25);
+        for (var e = -1; e <= 1; e += 2) { g.fillStyle = '#efe4cc'; g.beginPath(); g.ellipse(e * 17, 5, 5.5, 4, e * 0.4, 0, Math.PI * 2); g.fill(); g.strokeStyle = 'rgba(150,120,80,0.4)'; g.lineWidth = 0.8; g.stroke(); }
+        var body = new Path2D(); body.moveTo(-18, 4); body.bezierCurveTo(-21, -18, 21, -18, 18, 4); body.quadraticCurveTo(0, 11, -18, 4); body.closePath();
+        var gr = g.createLinearGradient(0, -15, 0, 9); gr.addColorStop(0, '#fbf6ea'); gr.addColorStop(1, '#dcc9a4');
+        g.fillStyle = gr; g.fill(body);
+        g.strokeStyle = 'rgba(150,120,80,0.45)'; g.lineWidth = 1; g.stroke(body);
+        g.strokeStyle = 'rgba(160,130,90,0.5)'; g.lineWidth = 1.1; g.beginPath(); g.moveTo(-14, 2); g.bezierCurveTo(-16, -12, 16, -12, 14, 2); g.stroke();
+        g.strokeStyle = 'rgba(255,255,255,0.7)'; g.lineWidth = 0.9; g.beginPath(); g.moveTo(-16, 3); g.bezierCurveTo(-18, -14, 18, -14, 16, 3); g.stroke();
+        gloss(g, -3, -6, 8, 4, 0.55);
+        g.restore();
+      }
+      dots(g, [10, 20, 240, 160], 140, ['rgba(255,255,255,0.8)'], 0.4, 1, r);
+    },
+    cutlets: function(g, r){
+      for (var k = 0; k < 4; k++) {
+        var cx = 70 + (k % 2) * 110 + (r() - 0.5) * 10, cy = 66 + Math.floor(k / 2) * 66;
+        shadow(g, cx, cy + 22, 46, 9, 0.3);
+        var p = blob(cx, cy, 44, 28, 12, 0.1, r, (r() - 0.5) * 0.4);
+        mincing(g, p, [cx - 46, cy - 30, 92, 60], r, 320, ['#c9545a', '#e48b88', '#a8343c', '#f6d6cc', '#efe6d2']);
+        shade(g, p, [cx - 46, cy - 30, 92, 60], 0.25, 0.3);
+      }
+    },
+    salo: function(g, r){
+      shadow(g, 120, 152, 104, 16, 0.3);
+      var p = blob(118, 100, 98, 50, 12, 0.07, r, -0.06, 0.55);
+      fat(g, p, r, [20, 50, 200, 100]);
+      g.save(); g.clip(p);
+      g.fillStyle = '#e39a8e'; g.beginPath(); g.moveTo(10, 118); g.bezierCurveTo(80, 108, 150, 126, 230, 112); g.lineTo(230, 126); g.bezierCurveTo(150, 140, 80, 122, 10, 132); g.closePath(); g.fill();
+      g.fillStyle = '#b98b62'; g.fillRect(10, 140, 230, 20);
+      dots(g, [20, 50, 200, 100], 40, ['#2a1a12'], 0.8, 1.6, r);
+      dots(g, [20, 50, 200, 40], 60, ['rgba(255,255,255,0.95)', 'rgba(220,220,225,0.9)'], 0.6, 1.3, r);
+      for (var i = 0; i < 6; i++) { var gx = 40 + r() * 160, gy = 60 + r() * 30; g.fillStyle = '#f4ead0'; g.beginPath(); g.ellipse(gx, gy, 5, 3, r() * 3, 0, Math.PI * 2); g.fill(); g.strokeStyle = 'rgba(160,130,80,0.6)'; g.lineWidth = 0.8; g.stroke(); }
+      g.restore();
+      for (var k = 0; k < 2; k++) { var sl = blob(212 + k * 14, 150 - k * 10, 30, 8, 10, 0.08, r, -0.5); fat(g, sl, r, [180, 135, 70, 30]); }
+    },
+    smoked: function(g, r){
+      shadow(g, 118, 150, 104, 16, 0.32);
+      var p = blob(108, 98, 90, 52, 12, 0.08, r, -0.05, 0.6);
+      meat(g, p, ['#a5491f', '#4f1806'], r, { box: [18, 46, 180, 104], glossA: 0.35, fibre: 0 });
+      layered(g, blob(196, 96, 18, 50, 12, 0.05, r, -0.05), [178, 46, 36, 100], r, true);
+      for (var k = 0; k < 2; k++) layered(g, blob(176 + k * 30, 158 - k * 6, 40, 12, 12, 0.06, r, -0.15), [136 + k * 30, 144 - k * 6, 80, 26], r, false);
+    },
+    roast: function(g, r){
+      shadow(g, 112, 146, 100, 16, 0.32);
+      var p = blob(104, 96, 92, 46, 14, 0.07, r, -0.1, 0.8);
+      meat(g, p, ['#b5652f', '#5e2a10'], r, { box: [12, 50, 184, 92], glossA: 0.4 });
+      g.save(); g.clip(p); dots(g, [12, 50, 184, 92], 50, ['#2a1a12', '#4d6b2a', '#3a2a14'], 0.6, 1.6, r); g.restore();
+      for (var k = 0; k < 3; k++) {
+        var cx = 166 + k * 22, cy = 142 - k * 8;
+        var sl = blob(cx, cy, 30, 22, 12, 0.07, r, -0.3);
+        meat(g, sl, ['#ecc1b2', '#c99080'], r, { box: [cx - 30, cy - 22, 60, 44], fibre: 0.8, glossA: 0.2 });
+        g.save(); g.clip(sl); g.strokeStyle = '#7a3814'; g.lineWidth = 5; g.stroke(sl); g.restore();
+      }
+      rosemary(g, 40, 168, 50, -0.2, r);
+    }
+  };
+  function chunk(g, r, col, marb, sinew){
+    shadow(g, 130, 152, 100, 18, 0.32);
+    var p = blob(130, 98, 94, 62, 11, 0.3, r, (r() - 0.5) * 0.4);
+    meat(g, p, col, r, { box: [32, 34, 196, 130], marb: marb, fibre: r() * 3 });
+    g.save(); g.clip(p);
+    if (sinew) for (var i = 0; i < 3; i++) { g.strokeStyle = 'rgba(232,234,244,0.45)'; g.lineWidth = 2 + r() * 3; g.beginPath(); g.moveTo(40 + r() * 60, 60 + r() * 80); g.bezierCurveTo(100, 40 + r() * 100, 150, 40 + r() * 100, 200 + r() * 20, 60 + r() * 80); g.stroke(); }
+    fat(g, blob(80 + r() * 100, 60 + r() * 20, 30, 12, 10, 0.4, r, r() * 3), r, [40, 40, 180, 60]);
+    g.restore();
+  }
+  function minceMound(g, r, cols){
+    shadow(g, 130, 158, 112, 18, 0.35);
+    var p = blob(130, 108, 104, 56, 18, 0.1, r, 0);
+    mincing(g, p, [20, 46, 220, 124], r, 1100, cols);
+    shade(g, p, [20, 46, 220, 124], 0.22, 0.4);
+  }
+  function layered(g, path, b, r, vertical){
+    g.save(); g.clip(path);
+    for (var i = 0; i < 9; i++) {
+      g.fillStyle = i % 2 ? '#f3e2c6' : '#c9544a';
+      if (vertical) g.fillRect(b[0] - 4, b[1] + i * b[3] / 9 + (r() - 0.5) * 3, b[2] + 8, b[3] / 9 + 2);
+      else g.fillRect(b[0] + i * b[2] / 9 + (r() - 0.5) * 3, b[1] - 4, b[2] / 9 + 2, b[3] + 8);
+    }
+    g.strokeStyle = '#5a1c08'; g.lineWidth = 6; g.stroke(path);
+    gloss(g, b[0] + b[2] * 0.4, b[1] + b[3] * 0.3, b[2] * 0.3, b[3] * 0.2, 0.25);
+    g.restore();
+  }
+
+  // a white studio backdrop, like a stock product photo
+  function wood(g, w, h, r, base, dark){
+    g.fillStyle = base; g.fillRect(0, 0, w, h);
+    for (var y = 0; y < h; y += 2) {
+      g.strokeStyle = r() < 0.5 ? 'rgba(0,0,0,' + (0.04 + r() * 0.08).toFixed(2) + ')' : 'rgba(255,220,170,' + (0.03 + r() * 0.05).toFixed(2) + ')';
+      g.lineWidth = 1 + r() * 1.5;
+      g.beginPath(); g.moveTo(0, y);
+      for (var x = 0; x <= w; x += 40) g.lineTo(x, y + Math.sin(x / 90 + y / 30) * 3 + (r() - 0.5) * 1.5);
+      g.stroke();
+    }
+    for (var k = 0; k < 3; k++) {
+      var kx = r() * w, ky = r() * h;
+      for (var j = 1; j < 6; j++) { g.strokeStyle = dark; g.lineWidth = 1; g.beginPath(); g.ellipse(kx, ky, j * 7, j * 2.4, 0, 0, Math.PI * 2); g.stroke(); }
+    }
+  }
+
+  // ---------- page textures and pictures ----------
+
+
+  function grain(w, h){
+    var c = document.createElement('canvas'); c.width = w; c.height = h;
+    var g = c.getContext('2d'), d = g.createImageData(w, h), r = mulberry(77);
+    for (var i = 0; i < d.data.length; i += 4) { var v = (r() * 255) | 0; d.data[i] = d.data[i + 1] = d.data[i + 2] = v; d.data[i + 3] = 22; }
+    g.putImageData(d, 0, 0); return c;
+  }
+  var GRAIN = null;
+  function slate(g, w, h, seed){
+    var r = mulberry(seed);
+    g.fillStyle = '#2b2e30'; g.fillRect(0, 0, w, h);
+    for (var i = 0; i < 26; i++) {
+      var x = r() * w, y = r() * h, rad = 30 + r() * 120;
+      var gr = g.createRadialGradient(x, y, 0, x, y, rad);
+      var light = r() < 0.5;
+      gr.addColorStop(0, light ? 'rgba(90,96,100,0.16)' : 'rgba(10,12,14,0.22)'); gr.addColorStop(1, 'rgba(0,0,0,0)');
+      g.fillStyle = gr; g.fillRect(x - rad, y - rad, rad * 2, rad * 2);
+    }
+    g.strokeStyle = 'rgba(160,165,170,0.05)'; g.lineWidth = 1;
+    for (var k = 0; k < 18; k++) { g.beginPath(); var yy = r() * h; g.moveTo(0, yy); g.bezierCurveTo(w * 0.3, yy + (r() - 0.5) * 30, w * 0.7, yy + (r() - 0.5) * 30, w, yy + (r() - 0.5) * 20); g.stroke(); }
+    var key = g.createRadialGradient(w * 0.3, h * 0.2, 0, w * 0.3, h * 0.2, Math.max(w, h));
+    key.addColorStop(0, 'rgba(255,240,220,0.10)'); key.addColorStop(1, 'rgba(0,0,0,0)');
+    g.fillStyle = key; g.fillRect(0, 0, w, h);
+  }
+  function salt(g, b, n, r){
+    for (var i = 0; i < n; i++) { g.fillStyle = 'rgba(245,242,236,' + (0.5 + r() * 0.5).toFixed(2) + ')'; var s = 0.6 + r() * 1.6; g.save(); g.translate(b[0] + r() * b[2], b[1] + r() * b[3]); g.rotate(r() * 3); g.fillRect(-s / 2, -s / 2, s, s); g.restore(); }
+  }
+  function finish(g, w, h){
+    var vg = g.createRadialGradient(w / 2, h / 2, Math.min(w, h) * 0.35, w / 2, h / 2, Math.max(w, h) * 0.75);
+    vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,0.45)');
+    g.fillStyle = vg; g.fillRect(0, 0, w, h);
+    if (!GRAIN) GRAIN = grain(256, 256);
+    g.fillStyle = g.createPattern(GRAIN, 'repeat'); g.globalCompositeOperation = 'overlay'; g.fillRect(0, 0, w, h); g.globalCompositeOperation = 'source-over';
+  }
+  function canvasUrl(c){ try { return c.toDataURL('image/webp', 0.86); } catch (e) { return c.toDataURL('image/jpeg', 0.86); } }
+
+  var IMG = {};
+  function productImage(p, scale){
+    var ph = photoFor(p.id, scale); if (ph) return ph;
+    var key = p.id + '@' + scale;
+    if (IMG[key]) return IMG[key];
+    var W = 260, H = 195;
+    var c = document.createElement('canvas'); c.width = Math.round(W * scale); c.height = Math.round(H * scale);
+    var g = c.getContext('2d'); g.scale(scale, scale);
+    slate(g, W, H, p.id * 31 + 5);
+    var r = mulberry(p.id * 7919 + 3);
+    g.save(); g.translate(W / 2, H / 2); g.scale(0.9, 0.9); g.translate(-W / 2, -H / 2 + 4);
+    DRAW[p.img](g, r);
+    g.restore();
+    if (p.cat !== 'semi' || p.img === 'kebab') { salt(g, [10, 150, 90, 38], 14, r); peppercorns(g, [190, 10, 60, 30], 4, r); }
+    if (p.id % 3 === 0) rosemary(g, 18, 30, 60, 0.5, r);
+    finish(g, W, H);
+    // a sticky note left on the board when this product was photographed; only legible on the enlarged photo
+    var noted = p.id === NOTE_ID && scale >= 3;
+    if (noted) stickyNote(g);
+    var url = canvasUrl(c);
+    if (!noted || noteFontReady()) IMG[key] = url;
+    return url;
+  }
+  var NOTE_ID = 0; // 0 = no note on any photo (the password now lives outside the site)
+  var NOTE = null;
+  var notedUrl = null;
+  function notedPhoto(p, img){
+    if (notedUrl) { img.src = notedUrl; return; }
+    var pic = new Image();
+    pic.onload = function(){
+      var fontReady = document.fonts && document.fonts.load ? document.fonts.load('500 12px Caveat').catch(function(){}) : Promise.resolve();
+      fontReady.then(function(){
+        var url;
+        try {
+          var c = document.createElement('canvas'); c.width = pic.naturalWidth; c.height = pic.naturalHeight;
+          var g = c.getContext('2d'); g.drawImage(pic, 0, 0);
+          g.scale(c.width / 260, c.height / 195); stickyNote(g);
+          url = canvasUrl(c);
+        } catch (e) {
+          // the photo could not be drawn: show the drawn picture, which carries the note itself
+          var keep = PHOTO[p.id]; delete PHOTO[p.id]; url = productImage(p, 3); PHOTO[p.id] = keep;
+        }
+        if (noteFontReady()) notedUrl = url;
+        if (img.isConnected) img.src = url;
+      });
+    };
+    pic.src = photoFor(p.id, 3);
+  }
+  function noteFontReady(){ try { return document.fonts.check('500 12px Caveat'); } catch (e) { return true; } }
+  function stickyNote(g){
+    if (!NOTE) return;
+    var lines = NOTE.map(function(l){ return l.map(function(c){ return String.fromCharCode(c ^ 0x2A); }).join(''); });
+    g.save();
+    g.translate(206, 152); g.rotate(-0.09);
+    g.shadowColor = 'rgba(0,0,0,0.5)'; g.shadowBlur = 6; g.shadowOffsetY = 2;
+    var gr = g.createLinearGradient(0, -32, 0, 32);
+    gr.addColorStop(0, '#f3e07f'); gr.addColorStop(1, '#e2c650');
+    g.fillStyle = gr; g.fillRect(-42, -32, 84, 64);
+    g.shadowColor = 'transparent';
+    g.fillStyle = 'rgba(120,90,10,0.16)'; g.fillRect(-42, -32, 84, 6);
+    g.fillStyle = '#25305c'; g.textAlign = 'center'; g.textBaseline = 'middle';
+    var ys = [-14, 3, 19], sizes = [10.5, 10.5, 13.5];
+    lines.forEach(function(t, i){ g.font = '500 ' + sizes[i] + 'px Caveat, "Comic Sans MS", cursive'; g.fillText(t, (i - 1) * 1.5, ys[i] || 0); });
+    g.strokeStyle = '#25305c'; g.lineWidth = 0.7; g.beginPath(); g.moveTo(-24, 27); g.quadraticCurveTo(0, 24, 26, 26); g.stroke();
+    g.restore();
+  }
+
+  function scene(kind){
+    var ph = photoFor(kind, 3); if (ph) return ph;
+    var W = 900, H = kind === 'hero' ? 600 : 675, dpr = Math.min(window.devicePixelRatio || 1, 2) > 1 ? 1.5 : 1;
+    var c = document.createElement('canvas'); c.width = W * dpr; c.height = H * dpr;
+    var g = c.getContext('2d'); g.scale(dpr, dpr);
+    var r = mulberry(kind.length * 101);
+    slate(g, W, H, kind.length * 13);
+    function board(x, y, w, h, seed){
+      g.save(); g.shadowColor = 'rgba(0,0,0,0.6)'; g.shadowBlur = 30; g.shadowOffsetY = 14;
+      var bp = new Path2D(); bp.roundRect ? bp.roundRect(x, y, w, h, 14) : bp.rect(x, y, w, h);
+      g.fillStyle = '#a77a4b'; g.fill(bp); g.restore();
+      g.save(); g.clip(bp); g.translate(x, y); wood(g, w, h, mulberry(seed), '#a77a4b', 'rgba(80,45,15,0.22)');
+      var sh = g.createLinearGradient(0, 0, 0, h); sh.addColorStop(0, 'rgba(255,230,190,0.12)'); sh.addColorStop(1, 'rgba(0,0,0,0.18)');
+      g.fillStyle = sh; g.fillRect(0, 0, w, h); g.restore();
+    }
+    function place(type, x, y, s, seed){ g.save(); g.translate(x, y); g.scale(s, s); DRAW[type](g, mulberry(seed)); g.restore(); }
+    if (kind === 'hero') {
+      board(70, 70, 760, 460, 9);
+      place('ribeye', 90, 90, 1.45, 32); place('tenderloin', 420, 70, 1.5, 31); place('chop', 430, 270, 1.25, 53);
+      rosemary(g, 120, 470, 180, -0.25, r); rosemary(g, 700, 120, 120, 2.6, r);
+      salt(g, [100, 380, 300, 120], 60, r); peppercorns(g, [600, 430, 200, 80], 26, r);
+    } else if (kind === 'about') {
+      board(40, 60, 820, 560, 21);
+      place('beefchunk', 90, 110, 1.9, 61); place('brisket', 470, 260, 1.5, 62);
+      rosemary(g, 560, 160, 160, 0.3, r); salt(g, [80, 480, 400, 100], 50, r);
+    } else {
+      board(40, 50, 380, 280, 31); board(480, 50, 380, 280, 32); board(40, 370, 380, 260, 33); board(480, 370, 380, 260, 34);
+      place('neck', 55, 70, 1.35, 71); place('mince', 500, 60, 1.35, 72); place('ribs', 55, 380, 1.35, 73); place('sausages', 490, 380, 1.35, 74);
+    }
+    finish(g, W, H);
+    return canvasUrl(c);
+  }
+
+  function drawMap(){
+    var road = function(d, w){ return '<path d="' + d + '" stroke="#ffffff" stroke-width="' + w + '" fill="none" stroke-linecap="round"/>'; };
+    var svg = '<svg viewBox="0 0 520 340" role="img" aria-label="Схема: магазин на ул. Заводской, 14 и магазин на ул. Садовой, 3 у парка">'
+      + '<rect width="520" height="340" fill="#ece8e1"/>'
+      + '<path d="M0 270 C110 250 200 300 310 280 S460 262 520 276 L520 340 L0 340Z" fill="#b9d3e2"/>'
+      + '<rect x="350" y="26" width="150" height="96" rx="8" fill="#cfe2c0"/><text x="425" y="80" font-size="12" text-anchor="middle" fill="#55704a" font-family="Manrope, Arial">Парк</text>'
+      + '<g fill="#e0dad0">' + [[20,20,140,90],[185,20,140,90],[20,135,140,100],[185,135,140,100],[350,145,150,90],[20,20,0,0]].map(function(b){ return '<rect x="' + b[0] + '" y="' + b[1] + '" width="' + b[2] + '" height="' + b[3] + '" rx="4"/>'; }).join('') + '</g>'
+      + road('M0 122H520', 14) + road('M172 0V250', 12) + road('M338 0V250', 12) + road('M0 244H520', 14)
+      + '<g font-family="Manrope, Arial" font-size="11" fill="#6f6865"><text x="10" y="118">ул. Заводская</text><text x="10" y="240">ул. Садовая</text><text x="178" y="14" transform="rotate(90 178 14)">пр. Мира</text></g>'
+      + pin(250, 122, '1') + pin(420, 244, '2') + '</svg>';
+    function pin(x, y, t){ return '<g transform="translate(' + x + ' ' + y + ')"><path d="M0 0C-11-15-13-19-13-26A13 13 0 1 1 13-26C13-19 11-15 0 0Z" fill="#a3231f" stroke="#fff" stroke-width="2"/><text x="0" y="-21" font-size="12" font-weight="700" text-anchor="middle" fill="#fff" font-family="Manrope, Arial">' + t + '</text></g>'; }
+    document.getElementById('map').innerHTML = svg;
+  }
+
+  // ---------- cart ----------
+  var cart = {};
+  try { cart = JSON.parse(localStorage.getItem('toma-cart') || '{}') || {}; } catch (e) { cart = {}; }
+  Object.keys(cart).forEach(function(id){ if (!BY_ID[id] || !(cart[id] > 0)) delete cart[id]; });
+  function saveCart(){ try { localStorage.setItem('toma-cart', JSON.stringify(cart)); } catch (e) {} }
+  function step(p){ return p.pack ? 1 : 0.5; }
+  function totals(){
+    var n = 0, sum = 0;
+    Object.keys(cart).forEach(function(id){ n++; sum += BY_ID[id].price * cart[id]; });
+    return { n: n, sum: sum };
+  }
+  var FREE = 3000, MIN = 1500, DELIV = 290;
+  function updateCartBtn(){
+    var t = totals(), em = document.getElementById('cartCount');
+    em.hidden = !t.n; em.textContent = t.n;
+    document.getElementById('cartSum').textContent = t.n ? '≈ ' + money(t.sum) + ' ₽' : 'Корзина';
+  }
+  function addToCart(id, q){ cart[id] = Math.round(((cart[id] || 0) + q) * 10) / 10; saveCart(); updateCartBtn(); markInCart(id); }
+  function markInCart(id){
+    Array.prototype.forEach.call(document.querySelectorAll('[data-incart="' + id + '"]'), function(el){ el.textContent = cart[id] ? 'В корзине: ' + amount(BY_ID[id], cart[id]) : ''; });
+  }
+
+  // ---------- catalogue view ----------
+  var view = { cat: 'all', q: '' };
+  var pick = {};
+  function chosen(p){ return pick[p.id] || (p.pack ? 1 : 1); }
+  function listFor(){
+    var items;
+    if (view.q) { var q = view.q.toLowerCase(); items = P.filter(function(p){ return (p.name + ' ' + p.desc).toLowerCase().indexOf(q) >= 0; }); }
+    else if (view.cat === 'all') items = P.slice();
+    else if (view.cat === 'hits') items = P.filter(function(p){ return p.badge === 'hit'; });
+    else if (view.cat === 'sale') items = P.filter(function(p){ return p.old; });
+    else items = P.filter(function(p){ return p.cat === view.cat; });
+    var s = document.getElementById('sort').value;
+    if (s === 'asc') items.sort(function(a, b){ return a.price - b.price; });
+    else if (s === 'desc') items.sort(function(a, b){ return b.price - a.price; });
+    else items.sort(function(a, b){ return b.pop - a.pop; });
+    return items;
+  }
+  function priceLine(p){ return '<div class="ppk"><b class="num">' + money(p.price) + ' ₽</b>' + (p.old ? '<s class="num">' + money(p.old) + ' ₽</s>' : '') + '<small>' + (p.pack ? 'за ' + (p.pack.indexOf('шт') >= 0 ? 'упаковку' : 'пачку') : 'за кг') + '</small></div>'; }
+  function cardHTML(p){
+    var q = chosen(p);
+    return '<article class="card">'
+      + '<button class="card-img" type="button" data-open="' + p.id + '" aria-label="Подробнее: ' + esc(p.name) + '"><img src="' + productImage(p, 2) + '" alt="' + esc(p.name) + '" loading="lazy" width="520" height="390">'
+      + (p.badge ? '<span class="badge ' + p.badge + '">' + BADGE[p.badge] + '</span>' : '') + '</button>'
+      + '<div class="card-b"><button class="card-n" type="button" data-open="' + p.id + '">' + esc(p.name) + '</button>'
+      + '<div class="tags">' + (p.pack ? '<span class="tag">' + esc(p.pack) + '</span>' : '') + p.tags.map(function(t){ return '<span class="tag">' + esc(t) + '</span>'; }).join('') + '</div>'
+      + priceLine(p)
+      + (p.pack ? '' : '<div class="wsel" role="group" aria-label="Вес">' + WEIGHTS.map(function(w){ return '<button type="button" data-w="' + w + '" data-id="' + p.id + '" class="' + (w === q ? 'on' : '') + '" aria-pressed="' + (w === q) + '">' + wfmt(w) + '</button>'; }).join('') + '</div>')
+      + '<div class="buy"><span class="sum">' + (p.pack ? '' : '≈ ') + '<b class="num" data-sum="' + p.id + '">' + money(p.price * q) + ' ₽</b></span><button class="btn small" type="button" data-buy="' + p.id + '">В корзину</button></div>'
+      + '<div class="incart" data-incart="' + p.id + '">' + (cart[p.id] ? 'В корзине: ' + amount(p, cart[p.id]) : '') + '</div>'
+      + '</div></article>';
+  }
+  function renderGrid(){
+    var items = listFor(), grid = document.getElementById('grid');
+    var cat = CATS.filter(function(c){ return c.id === view.cat; })[0];
+    document.getElementById('gridTitle').textContent = view.q ? 'Поиск: «' + view.q + '»' : cat ? cat.name : view.cat === 'hits' ? 'Хиты продаж' : view.cat === 'sale' ? 'Акции' : 'Каталог';
+    grid.innerHTML = items.length ? items.map(cardHTML).join('') : '<p class="empty">По запросу ничего не нашлось. Попробуйте другое слово или выберите раздел.</p>';
+  }
+  function renderChips(){
+    var list = [{ id: 'all', name: 'Всё мясо' }, { id: 'hits', name: 'Хиты' }].concat(CATS).concat([{ id: 'sale', name: 'Акции' }]);
+    document.getElementById('chips').innerHTML = list.map(function(c){ return '<button class="chip" type="button" data-cat="' + c.id + '">' + c.name + '</button>'; }).join('');
+    markChips();
+  }
+  function markChips(){
+    Array.prototype.forEach.call(document.querySelectorAll('#chips .chip'), function(b){ var on = !view.q && b.getAttribute('data-cat') === view.cat; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
+  }
+  function setCat(cat){ view.cat = cat; view.q = ''; document.getElementById('q').value = ''; markChips(); renderGrid(); }
+  function renderCats(){
+    document.getElementById('cats').innerHTML = CATS.map(function(c){
+      var n = P.filter(function(p){ return p.cat === c.id; }).length;
+      return '<button class="cat" type="button" data-cat="' + c.id + '" data-jump="1"><img src="' + productImage(BY_ID[c.pic], 2) + '" alt="" loading="lazy"><span>' + c.name + '<em>' + n + ' ' + plural(n, 'позиция', 'позиции', 'позиций') + '</em></span></button>';
+    }).join('');
+  }
+
+  // ---------- modal ----------
+  var modal = document.getElementById('modal'), mBox = modal.querySelector('.modal-box'), mTitle = document.getElementById('modalTitle'), mBody = document.getElementById('modalBody');
+  var lastFocus = null;
+  function openModal(title, html, narrow){
+    if (modal.hidden) lastFocus = document.activeElement;
+    mBody.onclick = null; mBody.onsubmit = null; mBody.onchange = null;
+    mBox.classList.toggle('narrow', !!narrow);
+    mTitle.textContent = title; mBody.innerHTML = html;
+    modal.hidden = false; document.body.style.overflow = 'hidden';
+    document.getElementById('modalX').focus();
+  }
+  function closeModal(){
+    modal.hidden = true; mBody.innerHTML = ''; document.body.style.overflow = drawer.hidden ? '' : 'hidden';
+    if (lastFocus && lastFocus.focus) { try { lastFocus.focus({ preventScroll: true }); } catch (e) {} }
+  }
+  function wide(on){ mBox.classList.toggle('narrow', !on); }
+  document.getElementById('modalX').addEventListener('click', closeModal);
+  modal.addEventListener('click', function(e){ if (e.target === modal) closeModal(); });
+
+  function showProduct(id){
+    var p = BY_ID[id], q = p.pack ? 1 : chosen(p);
+    var keep = p.pack === 'Пачка 1 кг' ? 'В морозильной камере при −18 °C до 3 месяцев'
+      : p.cat === 'mince' ? 'При 0…+4 °C не более 24 часов'
+      : p.cat === 'deli' ? 'При 0…+6 °C до 5 суток'
+      : p.cat === 'semi' ? 'При 0…+4 °C до 48 часов'
+      : 'При 0…+4 °C до 72 часов';
+    function sumText(){ return (p.pack ? '' : '≈ ') + money(p.price * q) + ' ₽'; }
+    var html = '<div class="pv"><figure><img src="' + productImage(p, 3) + '" alt="' + esc(p.name) + '"></figure><div>'
+      + '<div class="tags" style="margin-bottom:12px">' + p.tags.map(function(t){ return '<span class="tag">' + esc(t) + '</span>'; }).join('') + '</div>'
+      + '<p>' + esc(p.desc) + '</p>'
+      + '<dl class="spec"><dt>Хранение</dt><dd>' + keep + '</dd><dt>Упаковка</dt><dd>' + (p.pack ? esc(p.pack) : 'Лоток или вакуум, на выбор') + '</dd><dt>Продажа</dt><dd>' + (p.pack ? 'Поштучно' : 'На вес, шаг 0,5 кг') + '</dd></dl>'
+      + priceLine(p)
+      + (p.cut ? '<label for="pvCut">Разделка</label><select id="pvCut">' + p.cut.map(function(c){ return '<option>' + esc(c) + '</option>'; }).join('') + '</select>' : '')
+      + '<label>Количество</label><div class="qty"><button type="button" data-q="-1" aria-label="Меньше">−</button><output id="pvQ">' + amount(p, q) + '</output><button type="button" data-q="1" aria-label="Больше">+</button></div>'
+      + '<div class="buy"><span class="sum">Сумма: <b class="num" id="pvS">' + sumText() + '</b></span><button class="btn" type="button" id="pvAdd">В корзину</button></div>'
+      + '<div id="pvMsg"></div></div></div>';
+    openModal(p.name, html);
+    if (p.id === NOTE_ID && PHOTO[p.id]) notedPhoto(p, mBody.querySelector('.pv figure img'));
+    mBody.onclick = function(e){
+      var t = e.target.closest('button'); if (!t) return;
+      if (t.hasAttribute('data-q')) {
+        q = Math.max(step(p), Math.min(p.pack ? 20 : 15, Math.round((q + step(p) * +t.getAttribute('data-q')) * 10) / 10));
+        document.getElementById('pvQ').textContent = amount(p, q);
+        document.getElementById('pvS').textContent = sumText();
+      } else if (t.id === 'pvAdd') {
+        addToCart(p.id, q);
+        var cut = document.getElementById('pvCut');
+        if (cut && cut.selectedIndex > 0) { cuts[p.id] = cut.value; saveCuts(); }
+        document.getElementById('pvMsg').innerHTML = '<div class="msg ok">Добавили в корзину: ' + amount(p, q) + '. <button type="button" id="pvGo" style="border:0;background:none;padding:0;color:inherit;text-decoration:underline;font-weight:700">Перейти в корзину</button></div>';
+      } else if (t.id === 'pvGo') { closeModal(); openCart(); }
+    };
+  }
+  var cuts = {};
+  try { cuts = JSON.parse(localStorage.getItem('toma-cuts') || '{}') || {}; } catch (e) { cuts = {}; }
+  function saveCuts(){ try { localStorage.setItem('toma-cuts', JSON.stringify(cuts)); } catch (e) {} }
+
+  var DOCS = {
+    privacy: ['Политика конфиденциальности', '<div class="prose"><p>ИП Томилин А. В. обрабатывает персональные данные покупателей (имя, телефон, адрес доставки) только для оформления и доставки заказов.</p><p>Мы не передаём данные третьим лицам, кроме курьерской службы, которая доставляет ваш заказ. Вы можете попросить удалить ваши данные, позвонив по телефону ' + PHONE + '.</p><p>Сайт использует файлы cookie, чтобы помнить содержимое корзины.</p></div>'],
+    terms: ['Пользовательское соглашение', '<div class="prose"><p>Цены на сайте указаны за килограмм товара и носят информационный характер. Окончательная стоимость заказа определяется по фактическому весу при получении.</p><p>Заказ считается принятым после подтверждения менеджером по телефону. Мы можем заменить товар на аналогичный, согласовав это с вами.</p></div>']
+  };
+
+  // ---------- drawer (cart and checkout) ----------
+  var drawer = document.getElementById('drawer'), veil = document.getElementById('shade'), drBody = document.getElementById('drBody'), drFoot = document.getElementById('drFoot');
+  var drFocus = null, stage = 'cart', promoMsg = '';
+  var order = { day: 0, slot: '', pay: 'Картой курьеру' };
+  function openCart(){
+    drFocus = document.activeElement; stage = 'cart';
+    drawer.hidden = false; veil.hidden = false; document.body.style.overflow = 'hidden';
+    renderDrawer(); document.getElementById('drX').focus();
+  }
+  function closeCart(){
+    drawer.hidden = true; veil.hidden = true; document.body.style.overflow = '';
+    if (drFocus && drFocus.focus) { try { drFocus.focus({ preventScroll: true }); } catch (e) {} }
+  }
+  function slotsFor(day){
+    var list = ['10:00–12:00', '12:00–14:00', '14:00–16:00', '17:00–19:00', '19:00–21:00'];
+    var h = new Date().getHours();
+    return list.map(function(s){ var start = +s.slice(0, 2); return { s: s, off: day === 0 && (h >= 17 || start < h + 2) }; });
+  }
+  function renderDrawer(){
+    var ids = Object.keys(cart), t = totals();
+    document.getElementById('drTitle').textContent = stage === 'cart' ? 'Корзина' : 'Оформление';
+    if (!ids.length) {
+      drBody.innerHTML = '<p class="empty">В корзине пока пусто. Выберите мясо в каталоге и нажмите «В корзину».</p>';
+      drFoot.innerHTML = '<a class="btn wide" href="#catalog" id="drShop">Перейти в каталог</a>';
+      return;
+    }
+    var deliv = t.sum >= FREE ? 0 : DELIV;
+    if (stage === 'cart') {
+      drBody.innerHTML = ids.map(function(id){
+        var p = BY_ID[id];
+        return '<div class="line"><img src="' + productImage(p, 2) + '" alt=""><div><b>' + esc(p.name) + '</b><small>' + money(p.price) + ' ₽ ' + (p.pack ? 'за уп.' : 'за кг') + (cuts[id] ? ' · ' + esc(cuts[id]) : '') + '</small><br>'
+          + '<span class="qty"><button type="button" data-cq="-1" data-id="' + id + '" aria-label="Меньше">−</button><output>' + amount(p, cart[id]) + '</output><button type="button" data-cq="1" data-id="' + id + '" aria-label="Больше">+</button></span></div>'
+          + '<div><div class="lsum num">' + money(p.price * cart[id]) + ' ₽</div><button class="rm" type="button" data-del="' + id + '">Удалить</button></div></div>';
+      }).join('')
+        + '<div style="margin-top:16px"><label class="sr" for="promo">Промокод</label><div class="promo"><input id="promo" placeholder="Промокод" autocomplete="off"><button type="button" id="promoBtn">Применить</button></div>' + (promoMsg ? '<div class="msg warn">' + promoMsg + '</div>' : '') + '</div>';
+      drFoot.innerHTML = '<div class="tot"><span>Товары</span><span class="num">≈ ' + money(t.sum) + ' ₽</span></div>'
+        + '<div class="tot"><span>Доставка</span><span class="num">' + (deliv ? money(deliv) + ' ₽' : 'бесплатно') + '</span></div>'
+        + (deliv ? '<p class="note" style="margin:0">До бесплатной доставки осталось ' + money(FREE - t.sum) + ' ₽</p>' : '')
+        + '<div class="tot big"><span>Итого</span><span class="num">≈ ' + money(t.sum + deliv) + ' ₽</span></div>'
+        + (t.sum < MIN ? '<p class="note" style="margin:0">Минимальная сумма заказа с доставкой — ' + money(MIN) + ' ₽</p>' : '')
+        + '<button class="btn wide" type="button" id="toCheckout"' + (t.sum < MIN ? ' disabled' : '') + '>Оформить заказ</button>';
+    } else {
+      var slots = slotsFor(order.day);
+      if (!order.slot || slots.some(function(x){ return x.s === order.slot && x.off; })) { var free = slots.filter(function(x){ return !x.off; })[0]; order.slot = free ? free.s : ''; }
+      drBody.innerHTML = '<form class="form" id="coForm" novalidate>'
+        + '<label for="coName">Имя<input id="coName" autocomplete="name"></label>'
+        + '<label for="coPhone">Телефон<input id="coPhone" type="tel" autocomplete="tel" placeholder="+7"></label>'
+        + '<label class="full" for="coAddr">Адрес доставки<input id="coAddr" autocomplete="street-address" placeholder="Улица, дом, квартира"></label>'
+        + '<div class="full"><span class="note">День доставки</span><div class="slots" style="margin-top:6px">' + ['Сегодня', 'Завтра', 'Послезавтра'].map(function(d, i){ return '<button type="button" data-day="' + i + '" class="' + (order.day === i ? 'on' : '') + '">' + d + '</button>'; }).join('') + '</div></div>'
+        + '<div class="full"><span class="note">Время</span><div class="slots" style="margin-top:6px">' + slots.map(function(x){ return '<button type="button" data-slot="' + x.s + '" class="' + (order.slot === x.s ? 'on' : '') + '"' + (x.off ? ' disabled' : '') + '>' + x.s + '</button>'; }).join('') + '</div>' + (order.slot ? '' : '<p class="note">На сегодня свободных интервалов нет, выберите другой день.</p>') + '</div>'
+        + '<label class="full" for="coPay">Оплата<select id="coPay">' + ['Картой курьеру', 'По СБП при получении', 'Наличными'].map(function(o){ return '<option' + (o === order.pay ? ' selected' : '') + '>' + o + '</option>'; }).join('') + '</select></label>'
+        + '<label class="full" for="coNote">Комментарий<textarea id="coNote" placeholder="Например: шею нарезать на шашлык, позвонить за час"></textarea></label>'
+        + '</form><div id="coMsg"></div>';
+      drFoot.innerHTML = '<div class="tot big"><span>Итого</span><span class="num">≈ ' + money(t.sum + deliv) + ' ₽</span></div>'
+        + '<button class="btn wide" type="submit" form="coForm" id="coSend">Подтвердить заказ</button>'
+        + '<button class="btn ghost wide" type="button" id="toCart" style="color:var(--ink)">Вернуться в корзину</button>'
+        + '<p class="note" style="margin:0">Нажимая «Подтвердить заказ», вы соглашаетесь с политикой конфиденциальности.</p>';
+    }
+  }
+  drawer.addEventListener('click', function(e){
+    var t = e.target.closest('button,a'); if (!t) return;
+    var id = t.getAttribute('data-id') || t.getAttribute('data-del');
+    if (t.id === 'drX') return closeCart();
+    if (t.id === 'drShop') { closeCart(); return; }
+    if (t.hasAttribute('data-cq')) {
+      var p = BY_ID[id], nq = Math.round((cart[id] + step(p) * +t.getAttribute('data-cq')) * 10) / 10;
+      if (nq <= 0) delete cart[id]; else cart[id] = Math.min(p.pack ? 20 : 15, nq);
+    } else if (t.hasAttribute('data-del')) delete cart[id];
+    else if (t.id === 'promoBtn') { var v = document.getElementById('promo').value.trim(); promoMsg = v ? 'Промокод «' + esc(v) + '» не найден или срок его действия закончился.' : 'Введите промокод.'; }
+    else if (t.id === 'toCheckout') stage = 'form';
+    else if (t.id === 'toCart') stage = 'cart';
+    else if (t.hasAttribute('data-day')) { keepForm(); order.day = +t.getAttribute('data-day'); order.slot = ''; }
+    else if (t.hasAttribute('data-slot')) { keepForm(); order.slot = t.getAttribute('data-slot'); }
+    else return;
+    if (id) { saveCart(); updateCartBtn(); markInCart(id); }
+    var f = stage === 'form' ? formValues() : null;
+    renderDrawer();
+    if (f) restoreForm(f);
+  });
+  var formCache = null;
+  function formValues(){ var o = {}; ['coName', 'coPhone', 'coAddr', 'coNote', 'coPay'].forEach(function(k){ var el = document.getElementById(k); if (el) o[k] = el.value; }); return Object.keys(o).length ? o : formCache; }
+  function keepForm(){ formCache = formValues(); if (formCache && formCache.coPay) order.pay = formCache.coPay; }
+  function restoreForm(o){ if (!o) return; Object.keys(o).forEach(function(k){ var el = document.getElementById(k); if (el && k !== 'coPay') el.value = o[k]; }); }
+  drawer.addEventListener('submit', function(e){
+    e.preventDefault();
+    // online checkout is switched off: nothing typed here is stored or sent
+    var name = document.getElementById('coName').value.trim(), phone = document.getElementById('coPhone').value.replace(/\D/g, '');
+    var msg = document.getElementById('coMsg');
+    if (!name || phone.length < 10) { msg.innerHTML = '<div class="msg warn">Укажите имя и телефон, чтобы менеджер мог подтвердить заказ.</div>'; msg.scrollIntoView({ block: 'nearest' }); return; }
+    msg.innerHTML = '<div class="msg warn">Онлайн-оформление сейчас недоступно. Пожалуйста, позвоните нам по телефону <b>' + PHONE + '</b> с 8:00 до 20:00 и продиктуйте заказ — состав корзины сохранится на этом устройстве.</div>';
+    msg.scrollIntoView({ block: 'nearest', behavior: reduce ? 'auto' : 'smooth' });
+  });
+  veil.addEventListener('click', closeCart);
+
+  // ---------- wholesale client area ----------
+  // The wholesale cabinet is AES-GCM encrypted; the key is derived from what the visitor types,
+  // so the page source holds no readable answers. Nothing typed here is stored or sent anywhere.
+  var VAULT = {"it":150000,"cab":[{"s":"gSQPYZZZy3MJhBs6sMeHXw==","iv":"uWrKMJl/VjhyAz59","ct":"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"}],"b":[{"s":"XxLW7vSZWI6LSdOBlNc1uw==","iv":"BFqcdOuQNVIEG8xa","ct":"JLKePhpt2t/d1/vxJTFR+uj9O4STzxwxrbmrcCrWTgzbShqM0RzKz3Qq8+KBSY3OZIME4gt9QGpcJ18KYpJNLTIC6kIMimv8scKvH6OG1xcwQwPeoAdiVauhiMoZM3CAkw=="},{"s":"m/+wQRhtjKewGBaRK8HIvA==","iv":"l8O2yrL/GCEIYT+e","ct":"AntY2f4/oD1XbeC/YKZ5GTAcUHBjZ92mvR/9Th+M5A8fSa314iskT+hTAcNqBSDYbuIKh3fn+KfPO72oKF+YARwBsqcZXFX5/pn8I+tWXdsPHbs0D0ORLGdSbiInVJcUJg=="},{"s":"XUCulTWwkPtCDKZrovkujA==","iv":"T6+nRxhPZrCJS/hM","ct":"L891xrt76EPH0U9fali67X0ROQJH4xvJhz3qGRBXFtCFJNoDa9z7Xt0d0a1tY3mBfJD0pHIhutYdLTQuUUVDDv0FRn2ySF1njdLLWadpvk2v7sN39Y4pWZjetFTN4b/RZw=="},{"s":"AYa1rpTw7ZQABFfdhsahTw==","iv":"h2ZJnCwofDo6i15/","ct":"ZXhCgq1Gz+JLXruQdOtsR34BUsyZBDsR6RGIHcxWjwCI1HOa3dJxzgc3NW8ufDGl0vq4R0cu9d0BcdH2blOdcSgRJQIHS14GhOqi41qS7lZ55ua5xt8tMhd3wo/1PAZKxQ=="},{"s":"8fN6/+tEZHCCyJ4YFt6H6g==","iv":"6MrQKzRaRtg+qTKC","ct":"Oj/ZizaTpXXnlYoMkMdiOHEEaOjny0umEicmglq0Tw/hFgjI/a92/0jfPN8mA4U0fysySWR0p0eElJ2hHyDdGZlfk4BmL91iZ271prB83kW/kXgHaCK/9ZZEAjQ7MiEroQ=="},{"s":"ad3vIUE1+NuLUa4Wgj9ItA==","iv":"I379gRRvA6sYZyce","ct":"QS2rOlBXKyhgjqLXSUszU4Enb6Er1ElsdAstl0jwwzch36mS1K93K4Vimsa2/QF84yEj4JqT0n/qn/xk4cOWfE/4u53kvQttSg7gptg0FFgidK9i3YeDa9y2TRa+I6BPzQ=="},{"s":"bY6+107+MAnWFB5ellX7Og==","iv":"UN9Io43ZaDzWnkuf","ct":"p5kOm9s8KjPBMWtYMEXbVYd5Jo1vq9zL0gvianWD1VipsQ2HYFij/5HOBaAnYs3N74yRxrzv0WdPDWlkRj1RsYcdLIc/6Ptm/EvnEDRnXjZ1A8TibCvABrkd0DvomOLoPw=="}]};
+  var cabHTML = null, resHTML = null, extra = '', extraAt = '';
+  function b64(s){ var bin = atob(s), a = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) a[i] = bin.charCodeAt(i); return a; }
+  function normWord(s){ return String(s).toLowerCase().replace(/ё/g, 'е').replace(/[^0-9a-zа-я]/g, ''); }
+  function normLogin(s){ var t = normWord(s).replace(/k/g, 'к'); var m = t.match(/^к?(\d+)$/); return m ? m[1] : t; }
+  function openBox(entries, secret){
+    if (!window.crypto || !crypto.subtle || !VAULT) return Promise.resolve(null);
+    var enc = new TextEncoder();
+    return entries.reduce(function(prev, e){
+      return prev.then(function(found){
+        if (found !== null) return found;
+        return crypto.subtle.importKey('raw', enc.encode(secret), 'PBKDF2', false, ['deriveKey'])
+          .then(function(base){ return crypto.subtle.deriveKey({ name: 'PBKDF2', salt: b64(e.s), iterations: VAULT.it, hash: 'SHA-256' }, base, { name: 'AES-GCM', length: 256 }, false, ['decrypt']); })
+          .then(function(key){ return crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64(e.iv) }, key, b64(e.ct)); })
+          .then(function(buf){ return new TextDecoder().decode(buf); }, function(){ return null; });
+      });
+    }, Promise.resolve(null));
+  }
+  function showLogin(){
+    if (cabHTML) return showCabinet();
+    openModal('Вход для оптовых клиентов', '<p style="margin:0 0 16px">Личный кабинет доступен клиентам с договором на оптовые поставки. Номер договора и пароль выдаёт ваш менеджер.</p>'
+      + '<form class="form" id="loginForm" novalidate><label class="full" for="lgNum">Номер договора<input id="lgNum" autocomplete="off" placeholder="К-0000" spellcheck="false"></label>'
+      + '<label class="full" for="lgPass">Пароль<input id="lgPass" type="password" autocomplete="off"></label>'
+      + '<div class="full"><button class="btn wide" type="submit" id="lgBtn">Войти</button></div></form><div id="lgMsg"></div>'
+      + '<p class="note" style="margin-top:14px">Забыли пароль? Позвоните менеджеру: ' + PHONE + ', доб. 2.</p>', true);
+    mBody.onsubmit = function(e){
+      e.preventDefault();
+      var btn = document.getElementById('lgBtn'), msg = document.getElementById('lgMsg');
+      var secret = normLogin(document.getElementById('lgNum').value) + '|' + normWord(document.getElementById('lgPass').value);
+      btn.disabled = true; btn.textContent = 'Проверяем…'; msg.innerHTML = '';
+      openBox(VAULT ? VAULT.cab : [], secret).then(function(html){
+        if (modal.hidden) return;
+        if (html) { takeCab(html); try { sessionStorage.setItem('toma-s', secret); } catch (e) {} showCabinet(); route(); return; }
+        btn.disabled = false; btn.textContent = 'Войти';
+        msg.innerHTML = '<div class="msg warn">Неверный номер договора или пароль.</div>';
+      });
+    };
+  }
+  // what happens inside the cabinet: tabs and the chat composer.
+  // Messages the visitor sends stay on this page only; nothing is stored or sent anywhere.
+  var cabTab = 'orders', sentMsgs = [], draftLeft = null;
+  function stamp(d){ function p2(n){ return (n < 10 ? '0' : '') + n; } return p2(d.getDate()) + '.' + p2(d.getMonth() + 1) + '.' + d.getFullYear() + ' ' + p2(d.getHours()) + ':' + p2(d.getMinutes()) + ':' + p2(d.getSeconds()); }
+  function addSent(m){
+    var li = document.createElement('li'); li.className = 'me';
+    var sm = document.createElement('small'); sm.textContent = 'Вы, ' + m.at;
+    var tx = document.createElement('span'); tx.className = 'txt'; tx.textContent = m.text;
+    var stt = document.createElement('span'); stt.className = 'sent'; stt.textContent = 'Отправлено ✓';
+    li.appendChild(sm); li.appendChild(tx); li.appendChild(stt);
+    document.getElementById('chatList').appendChild(li);
+  }
+  function setTab(name){
+    cabTab = name;
+    Array.prototype.forEach.call(mBody.querySelectorAll('[data-tab]'), function(b){ b.setAttribute('aria-selected', String(b.getAttribute('data-tab') === name)); });
+    Array.prototype.forEach.call(mBody.querySelectorAll('[data-pane]'), function(p){ p.hidden = p.getAttribute('data-pane') !== name; });
+    if (name === 'chat') {
+      var badge = mBody.querySelector('[data-tab="chat"] em'); if (badge) badge.remove();
+      var list = document.getElementById('chatList'); list.scrollTop = list.scrollHeight;
+    }
+  }
+  function showCabinet(){
+    if (modal.hidden) openModal('Личный кабинет', ''); else mTitle.textContent = 'Личный кабинет';
+    wide(true);
+    mBody.innerHTML = cabHTML;
+    sentMsgs.forEach(addSent);
+    var input = document.getElementById('chatInput');
+    if (draftLeft !== null) input.value = draftLeft;
+    input.addEventListener('input', function(){ draftLeft = input.value; });
+    input.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); document.getElementById('chatSend').click(); }
+    });
+    setTab(cabTab);
+    mBody.onclick = function(e){
+      var mv = e.target.closest('.cab-moved'); if (mv) { var href = mv.getAttribute('href'), same = href.charAt(0) === '#' && location.hash === href; closeModal(); if (same) route(); return; }
+      var t = e.target.closest('button'); if (!t) return;
+      if (t.id === 'cabOut') { cabHTML = null; resHTML = null; extra = ''; extraAt = ''; sentMsgs = []; draftLeft = null; cabTab = 'orders'; try { sessionStorage.removeItem('toma-s'); } catch (e) {} closeModal(); route(); }
+      else if (t.hasAttribute('data-tab')) setTab(t.getAttribute('data-tab'));
+    };
+    mBody.onsubmit = function(e){
+      e.preventDefault();
+      if (e.target.id === 'chatForm') {
+        var text = input.value.trim();
+        if (!text) return;
+        var m = { at: stamp(new Date()), text: text };
+        sentMsgs.push(m); addSent(m);
+        input.value = ''; draftLeft = '';
+        var list = document.getElementById('chatList'); list.scrollTop = list.scrollHeight;
+      }
+    };
+  }
+  function takeCab(html){
+    var box = document.createElement('div'); box.innerHTML = html;
+    var tpl = box.querySelector('#pt');
+    var mv = box.querySelector('.cab-moved');
+    extra = tpl ? tpl.innerHTML : '';
+    extraAt = mv ? routeKey(mv.getAttribute('href')) : '';
+    if (tpl) tpl.remove();
+    cabHTML = box.innerHTML;
+  }
+
+  var shopMain = document.querySelector('main:not(#nf)'), nf = document.getElementById('nf'), nfSlot = document.getElementById('nfSlot');
+  var baseTitle = document.title, nfOn = false;
+  // a link target as a route key: "#name" stays "name", a path such as "sklady/" becomes "/sklady"
+  function routeKey(href){
+    if (href.charAt(0) === '#') { var k = href.slice(1); try { k = decodeURIComponent(k); } catch (e) {} return k; }
+    return '/' + href.replace(/^\.?\/+/, '').replace(/\/+$/, '');
+  }
+  function route(){
+    var h = location.hash.slice(1);
+    try { h = decodeURIComponent(h); } catch (e) {}
+    // on a host's own 404 page (window.__NF holds the site root), the missing path itself is the route
+    if (!h && window.__NF) { var rest = location.pathname.slice(window.__NF.length).replace(/\/+$/, ''); try { rest = decodeURIComponent(rest); } catch (e) {} if (rest) h = '/' + rest; }
+    var el = h ? document.getElementById(h) : null;
+    var lost = !!h && (!el || nf.contains(el) || !!el.closest('#modal,#drawer'));
+    if (!lost) {
+      if (!nfOn) return;
+      nfOn = false; nf.hidden = true; shopMain.hidden = false; nfSlot.innerHTML = ''; document.title = baseTitle;
+      if (el) el.scrollIntoView(); else window.scrollTo(0, 0);
+      return;
+    }
+    if (!nfOn) {
+      nfOn = true; shopMain.hidden = true; nf.hidden = false;
+      document.getElementById('nfGrid').innerHTML = P.filter(function(p){ return p.badge === 'hit'; }).slice(0, 4).map(cardHTML).join('');
+      document.title = 'Страница не найдена — Мясная «Дядя Тома»';
+    }
+    if (extra && h === extraAt) {
+      if (!document.getElementById('pf')) nfSlot.innerHTML = extra;
+      if (resHTML) document.getElementById('ps').innerHTML = resHTML;
+    } else nfSlot.innerHTML = '';
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+  window.addEventListener('hashchange', route);
+  function check(f){
+    var slot = document.getElementById('ps');
+    var num = String(document.getElementById('pn').value).replace(/\D/g, '').replace(/^0+/, '');
+    slot.innerHTML = '';
+    if (!num || num !== f.getAttribute('data-k')) return;
+    if (resHTML) { slot.innerHTML = resHTML; return; }
+    openBox(VAULT ? VAULT.b : [], normWord(document.getElementById('pw').value)).then(function(html){
+      if (!html || !document.getElementById('ps')) return;
+      resHTML = html; document.getElementById('ps').innerHTML = html;
+    });
+  }
+  document.addEventListener('submit', function(e){ if (e.target.id === 'pf') e.preventDefault(); });
+  document.addEventListener('keydown', function(e){
+    var f = e.target.form;
+    if (e.key === 'Enter' && f && f.id === 'pf' && !e.isComposing) { e.preventDefault(); check(f); }
+  });
+
+  // ---------- wiring ----------
+  document.addEventListener('click', function(e){
+    var t = e.target.closest('[data-open],[data-buy],[data-cat],[data-w],[data-login],[data-doc]');
+    if (!t) return;
+    if (t.hasAttribute('data-login')) { e.preventDefault(); closeNav(); showLogin(); return; }
+    if (t.hasAttribute('data-doc')) { var d = DOCS[t.getAttribute('data-doc')]; openModal(d[0], d[1], true); return; }
+    if (t.closest('#modal') || t.closest('#drawer')) return;
+    if (t.hasAttribute('data-open')) showProduct(+t.getAttribute('data-open'));
+    else if (t.hasAttribute('data-w')) {
+      var p = BY_ID[+t.getAttribute('data-id')], w = +t.getAttribute('data-w');
+      pick[p.id] = w;
+      Array.prototype.forEach.call(t.parentNode.children, function(b){ var on = +b.getAttribute('data-w') === w; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
+      Array.prototype.forEach.call(document.querySelectorAll('[data-sum="' + p.id + '"]'), function(el){ el.textContent = money(p.price * w) + ' ₽'; });
+    } else if (t.hasAttribute('data-buy')) {
+      var pb = BY_ID[+t.getAttribute('data-buy')];
+      addToCart(pb.id, chosen(pb));
+      t.textContent = 'Добавлено ✓';
+      setTimeout(function(){ t.textContent = 'В корзину'; }, 1300);
+    } else if (t.hasAttribute('data-cat')) {
+      setCat(t.getAttribute('data-cat'));
+      closeNav();
+      if (t.hasAttribute('data-jump') || t.tagName === 'A') { e.preventDefault(); document.getElementById('catalog').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' }); }
+    }
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key !== 'Escape') return;
+    if (!modal.hidden) closeModal(); else if (!drawer.hidden) closeCart();
+  });
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.getElementById('sort').addEventListener('change', renderGrid);
+  document.getElementById('findForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    view.q = document.getElementById('q').value.trim(); if (!view.q) view.cat = 'all';
+    markChips(); renderGrid();
+  });
+  document.getElementById('q').addEventListener('search', function(){ if (!this.value) { view.q = ''; markChips(); renderGrid(); } });
+  document.getElementById('cartBtn').addEventListener('click', openCart);
+  var nav = document.getElementById('nav'), burger = document.getElementById('burger');
+  function closeNav(){ nav.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); }
+  burger.addEventListener('click', function(){ var o = nav.classList.toggle('open'); burger.setAttribute('aria-expanded', String(o)); });
+  nav.addEventListener('click', function(e){ if (e.target.closest('a')) closeNav(); });
+
+  // opening hours in the strip, by the visitor's clock
+  (function(){
+    var d = new Date(), h = d.getHours() + d.getMinutes() / 60, open = h >= 8 && h < 21;
+    document.getElementById('openDot').classList.toggle('off', !open);
+    document.getElementById('openNow').textContent = open ? 'Открыто до 21:00 · ул. Заводская, 14' : 'Закрыто, откроемся в 8:00 · ул. Заводская, 14';
+  })();
+
+  // cookie notice
+  var cookie = document.getElementById('cookie'), seen = false;
+  try { seen = localStorage.getItem('toma-cookie') === '1'; } catch (e) {}
+  cookie.hidden = seen;
+  document.getElementById('cookieOk').addEventListener('click', function(){ cookie.hidden = true; try { localStorage.setItem('toma-cookie', '1'); } catch (e) {} });
+
+  // ---------- start ----------
+  renderChips();
+  renderCats();
+  renderGrid();
+  updateCartBtn();
+  drawMap();
+  document.getElementById('heroImg').src = scene('hero');
+  document.getElementById('aboutImg').src = scene('about');
+  document.getElementById('shopImg').src = scene('shop');
+  try { document.fonts.load('500 12px Caveat'); } catch (e) {}
+  var kept = null;
+  try { kept = sessionStorage.getItem('toma-s'); } catch (e) {}
+  if (kept) openBox(VAULT ? VAULT.cab : [], kept).then(function(html){ if (html && !cabHTML) { takeCab(html); route(); } });
+  route();
+})();
+</script>
+
+</body>
+</html>
